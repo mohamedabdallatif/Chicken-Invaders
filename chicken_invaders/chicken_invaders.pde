@@ -1,8 +1,6 @@
-PImage background, invador, bullet;
-float speed = 10;
-float bulletY = 0; // Y position of the bullet
-boolean isFiring = false; // Whether the bullet is currently moving
-float bulletX = 0; // X position of the bullet
+PImage background, invador, bullet, chicken;
+float speed = 15;
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 void setup() {
  size(1200, 800);
@@ -11,20 +9,22 @@ void setup() {
  background = loadImage("Space.png");
  invador = loadImage("Invador.png");
  bullet = loadImage("Bullet.png");
+ chicken = loadImage("Chicken.png");
 }
 
 void draw() {
  image(background, width/2, height/2);
  image(invador, mouseX, height - 100, 120, 200);
- if (isFiring) {
-   bulletY -= speed;
-   image(bullet, bulletX, bulletY, 20, 160);
-   if (bulletY < 0) {
-     isFiring = false;
+ 
+ for (int i = 0; i <= bullets.size()-1; i++) {
+   Bullet b = bullets.get(i);
+   b.display();
+   if (b.offScreen()) {
+     bullets.remove(i);
    }
- } else if (mousePressed) {
-   isFiring = true;
-   bulletX = mouseX;
-   bulletY = height - 160;
  }
+}
+
+void mousePressed() {
+ bullets.add(new Bullet(mouseX, height - 160));
 }
