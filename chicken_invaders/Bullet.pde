@@ -1,13 +1,15 @@
 class Bullet {
+ int buSpd = 10;
  float x, y;
+ PImage bullet = loadImage("Bullet.png");
 
- Bullet(float x, float y) {
-   this.x = x;
-   this.y = y;
+ public Bullet(float xpos, float ypos) {
+   this.x = xpos;
+   this.y = ypos;
  }
 
  void display() {
-   y -= speed;
+   y -= buSpd;
    image(bullet, x, y, 10, 80);
  }
 

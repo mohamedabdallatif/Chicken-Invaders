@@ -1,22 +1,29 @@
 class Chicken {
- float x, y, posX, chSpeed = 2.5;
+ Egg egg;
  boolean isHit = false;
- Chicken(float x, float y) {
-   this.x = x;
-   this.y = y;
-   this.posX = x;
+ float x, y, curX, chSpd = 2.5;
+ PImage chicken = loadImage("chicken.png");
+ 
+ public Chicken(float xpos, float ypos) {
+   this.x = xpos;
+   this.y = ypos;
+   this.curX = xpos;
+   this.egg = new Egg(xpos, ypos);
  }
 
  void display() {
    if (!isHit) {
-     image(chicken, this.posX, y, 70, 90);
+     this.curX += chSpd;
+     image(chicken, this.curX, y, 70, 90);
    }
  }
-
- void increaseSpeed(){
-   this.posX += chSpeed;
- }
-  void hit() {
+ 
+ void hit() {
    isHit = true;
+ }
+ 
+ void dropEgg() {
+    //egg.x = curX;
+    egg.display();
  }
 }
