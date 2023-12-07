@@ -10,7 +10,7 @@ void setup() {
  background = loadImage("Space.png");
  invador = loadImage("Invador.png");
  bullet = loadImage("Bullet.png");
- chicken = loadImage("Chicken.png");
+ chicken = loadImage("chicken.png");
 }
 
 void draw() {
