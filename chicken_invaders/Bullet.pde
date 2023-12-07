@@ -14,4 +14,8 @@ class Bullet {
  boolean offScreen() {
    return y < 0;
  }
+ 
+ boolean hitsChicken(float targetX, float targetY) {
+   return dist(x, y, targetX, targetY) < 150;
+ }
 }
