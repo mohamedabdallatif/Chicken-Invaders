@@ -1,5 +1,5 @@
 class Chicken {
- Egg egg;
+ Egg egg = new Egg();
  boolean isHit = false;
  float x, y, curX, chSpd = 2.5;
  PImage chicken = loadImage("chicken.png");
@@ -8,9 +8,13 @@ class Chicken {
    this.x = xpos;
    this.y = ypos;
    this.curX = xpos;
-   this.egg = new Egg(xpos, ypos);
  }
-
+ 
+ void createEgg(){
+  egg.creation(x + 35, y + 60);
+   
+ }
+  
  void display() {
    if (!isHit) {
      this.curX += chSpd;
@@ -20,10 +24,5 @@ class Chicken {
  
  void hit() {
    isHit = true;
- }
- 
- void dropEgg() {
-    //egg.x = curX;
-    egg.display();
  }
 }

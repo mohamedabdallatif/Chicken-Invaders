@@ -10,7 +10,7 @@ class Bullet {
 
  void display() {
    y -= buSpd;
-   image(bullet, x, y, 10, 80);
+   image(bullet, x, y, 8, 70);
  }
 
  boolean offBullet() {
