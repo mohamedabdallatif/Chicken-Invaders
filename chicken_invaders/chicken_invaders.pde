@@ -1,9 +1,7 @@
 PInvader invader;
 PImage background;
 PImage sound;
-import ddf.minim.*;
-Minim minim;
-AudioPlayer player;
+
 PImage mute;
   PFont font;
   PFont font60;
@@ -16,8 +14,7 @@ start_page start = new start_page();
 Guide guide = new Guide();
 void setup() {
   size(1200, 900);
-    minim = new Minim(this);
-   player = minim.loadFile("your_sound_file.mp3");
+   start.play_sound();
   smooth();
   imageMode(CENTER);
   background = loadImage("Space.jpg");
