@@ -3,7 +3,8 @@ PImage background;
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 int eggTime = 0, randomEgg = 0;
-
+int flag=0;
+start_page start = new start_page();
 void setup() {
   size(1200, 900);
   smooth();
@@ -19,6 +20,10 @@ void setup() {
 }
 
 void draw() {
+  if(flag==0){
+    start.draw_start_page();
+  }
+  else if(flag==1){
   imageMode(CENTER);
   image(background, width/2, height/2);
   invader.display();
@@ -48,6 +53,7 @@ void draw() {
     //  bullets.remove(i);
     //  chickenX = -200;
     //}
+  }
   }
 }
 
