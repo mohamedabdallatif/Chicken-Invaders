@@ -3,6 +3,8 @@ class start_page{
 void draw_start_page(){
    PImage start_page_background;
  start_page_background = loadImage("StartBackground.jpg");
+ sound = loadImage("sound.png");
+ mute = loadImage("mute.png");
  image(start_page_background, width/2, height/2);
     //start game button
     fill(18,153,175);
@@ -20,6 +22,13 @@ void draw_start_page(){
     textSize(35);
     textFont(font);
     text("Guide",520,625);
+    // sound button
+    if(isMute){
+    image(mute,50,50,60,60);
+    }
+    else{
+    image(sound,50,50,60,60);
+    }
     if(mouseX>=460 && mouseY>=450 && mouseX<=710 && mouseY<=530){
       fill(18,153,175);
       stroke(18,153,170);
@@ -39,6 +48,11 @@ void draw_start_page(){
       text("Guide",510,630);
       if(mousePressed==true)
     flag = 1;
+    }
+    if(mouseX>=50 && mouseY>=50 && mouseX<=110 && mouseY<=110){
+      if(mousePressed){
+     isMute= !isMute;
+      }
     }
    }
 }
