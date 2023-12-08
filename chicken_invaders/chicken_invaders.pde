@@ -9,14 +9,13 @@ void setup() {
   smooth();
   imageMode(CENTER);
   background = loadImage("Space.jpg");
-   invader = new PInvader("Invador.png");
-   for (int i = 0; i < 1100; i += 100) {
-    for (int j = 0; j < 300; j += 100) {
-      Chicken newChicken = new Chicken(i + 20, j + 20);
-      newChicken.createEgg();
-      chickens.add(newChicken);
-    }
-  }
+  invader = new PInvader("Invador.png");
+  for (int i = 0; i < 1100; i += 100) {
+   for (int j = 0; j < 300; j += 100) {
+    Chicken newChicken = new Chicken(i + 20, j + 20);
+    chickens.add(newChicken);
+   }
+ }
 }
 
 void draw() {
@@ -25,17 +24,19 @@ void draw() {
   invader.display();
   imageMode(CORNER);
 
+  // draw chickens and move them 
   for (int i = 0; i <= chickens.size()-1; i++) {
     if (chickens.get(i).curX > chickens.get(i).x + 100 || chickens.get(i).curX < chickens.get(i).x)  
           chickens.get(i).chSpd *= -1;
     chickens.get(i).display();
   }
   
+  // choose random alive chicken and drop it's egg
   if(millis() - eggTime > 6000){
       randomEgg = (int)random(0, chickens.size());
       eggTime = millis();
   }   
-  chickens.get(randomEgg).egg.display();
+  chickens.get(randomEgg).dropEgg();
  
   for (int i = 0; i <= bullets.size()-1; i++) {
     Bullet b = bullets.get(i);
