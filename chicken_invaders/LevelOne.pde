@@ -15,7 +15,7 @@ class LevelOne{
   
   if(mousePressed && millis() - previousMoment > 200){
      previousMoment = millis();
-     bullets.add(new Bullet(mouseX, height - 160));   
+     bullets.add(new Bullet(mouseX, height - 200));   
   }
   // choose random alive chicken and drop it's egg
   if(millis() - eggTime > 6000){

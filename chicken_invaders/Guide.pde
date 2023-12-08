@@ -7,6 +7,8 @@ class Guide{
   
   void displayGuide() {
      imageMode(CENTER);
+     strokeWeight(5);
+     stroke(255);
      background = loadImage("Space.jpg");
      image(background, width/2, height/2);
      textFont(titleFont);
@@ -16,30 +18,55 @@ class Guide{
      text(title, width/2, 100);
      textAlign(LEFT);
      textFont(font);
-     textSize(42);
+     textSize(45);
      fill(255, 200, 0);
      text(objective, 50, 150, 1100, 900);
      textFont(titleFontX);
      fill(0, 255, 153);
      text("Game instructions:", 50, 300, 1100, 900);
+     text("Game Levels:", 50, 490, 1100, 900);
+     text("Game Rewards:", 50, 600, 1100, 900);
      textFont(font);
      textSize(37);
      fill(200, 255, 255);
      text(instructions, 50, 360, 1100, 900);
-     textFont(titleFontX);
-     fill(0, 255, 153);
-     text("Game Levels:", 50, 490, 1100, 900);
-     textFont(font);
-     textSize(37);
-     fill(200, 255, 255);
      text(levels, 50, 555, 1100, 900);
-     textFont(titleFontX);
-     fill(0, 255, 153);
-     text("Game Rewards:", 50, 600, 1100, 900);
-     textFont(font);
-     textSize(37);
-     fill(200, 200, 255);
      text(rewards, 50, 660, 1100, 900);
+     if(mouseX > 100 && mouseX < 250 && mouseY < 880 && mouseY > 800){
+        fill(255, 255, 0); 
+        beginShape();
+           vertex(150, 810);
+           vertex(260, 810); 
+           vertex(260, 870);
+           vertex(150, 870); 
+           vertex(150, 890);
+           vertex(90, 840); 
+           vertex(150, 790); 
+        endShape(CLOSE);
+        fill(0);
+        textSize(26);
+        text("Return home", 115, 848);
+        if(mousePressed){
+          flag = 0;
+          playerX = minim.loadFile("click.wav");
+          playerX.play();
+        }
+     }
+     else{
+       fill(150, 255, 100); 
+       beginShape();
+          vertex(150, 820);
+          vertex(250, 820); 
+          vertex(250, 860);
+          vertex(150, 860); 
+          vertex(150, 880);
+          vertex(100, 840); 
+          vertex(150, 800); 
+      endShape(CLOSE);
+      fill(0);
+      textSize(23);
+      text("Return home", 120, 848);
+}
      
   }
 }

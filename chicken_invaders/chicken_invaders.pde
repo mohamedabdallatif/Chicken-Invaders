@@ -3,7 +3,7 @@ PImage background;
 PImage sound;
 import ddf.minim.*;
 Minim minim;
-AudioPlayer player;
+AudioPlayer player, playerX;
 PImage mute;
 PFont font, font60, titleFont, titleFontX;
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
@@ -18,6 +18,7 @@ void setup() {
   size(1200, 900);
   minim = new Minim(this);
   player = minim.loadFile("sound.mp3");
+  playerX = minim.loadFile("click.wav");
   //player.play();
   smooth();
   imageMode(CENTER);
