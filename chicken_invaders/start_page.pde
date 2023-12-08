@@ -1,18 +1,6 @@
-void stop_sound() {
-  // Close Minim audio resources when the sketch stops
-  player.close();
-  minim.stop();
-  //super.stop();
-}
-import ddf.minim.*;
-Minim minim;
-AudioPlayer player;
+
+
 class start_page{
-   void play_sound(){
-    minim = new Minim(this);
-   player = minim.loadFile("sound.mp3");
-   player.play();
-   }
 void draw_start_page(){
    PImage start_page_background;
  start_page_background = loadImage("StartBackground.jpg");
@@ -66,10 +54,10 @@ void draw_start_page(){
       if(mousePressed){
      isMute= !isMute;
      if(isMute){
-       stop_sound();
+       player.pause();
      }
      else{
-      play_sound();
+      player.play();
      }
       }
     }
