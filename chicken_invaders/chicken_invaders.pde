@@ -5,8 +5,8 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer player;
 PImage mute;
-  PFont font;
-  PFont font60;
+PFont font;
+PFont font60;
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 int eggTime = 0, randomEgg = 0;
@@ -14,11 +14,12 @@ int flag=0;
 boolean isMute = false;
 start_page start = new start_page();
 Guide guide = new Guide();
+LevelOne levelOne = new LevelOne();
 void setup() {
   size(1200, 900);
-    minim = new Minim(this);
-   player = minim.loadFile("sound.mp3");
-   player.play();
+  minim = new Minim(this);
+  player = minim.loadFile("sound.mp3");
+  player.play();
   smooth();
   imageMode(CENTER);
   background = loadImage("Space.jpg");
@@ -38,42 +39,9 @@ void draw() {
     start.draw_start_page();
   }
   else if(flag==1){
-   guide.displayGuide();
+    guide.displayGuide();
   }
   else if(flag==2){
-  imageMode(CENTER);
-  image(background, width/2, height/2);
-  invader.display();
-  imageMode(CORNER);
-
-  // draw chickens and move them 
-  for (int i = 0; i <= chickens.size()-1; i++) {
-    if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)  
-          chickens.get(i).chSpd *= -1;
-    chickens.get(i).display();
+    levelOne.DrawLevelOne();
   }
-  
-  // choose random alive chicken and drop it's egg
-  if(millis() - eggTime > 6000){
-      randomEgg = (int)random(0, chickens.size());
-      eggTime = millis();
-  }   
-  chickens.get(randomEgg).dropEgg();
- 
-  for (int i = 0; i <= bullets.size()-1; i++) {
-    Bullet b = bullets.get(i);
-    b.display();
-    if (b.offBullet()) {
-      bullets.remove(i);
-    }
-    //else if (b.hitsChicken(chickenX, chickenY)) {
-    //  bullets.remove(i);
-    //  chickenX = -200;
-    //}
-  }
-  }
-}
-
-void mousePressed() {
-  bullets.add(new Bullet(mouseX, height - 160));
 }
