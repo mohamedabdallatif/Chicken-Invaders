@@ -26,7 +26,7 @@ void draw() {
 
   // draw chickens and move them 
   for (int i = 0; i <= chickens.size()-1; i++) {
-    if (chickens.get(i).curX > chickens.get(i).x + 100 || chickens.get(i).curX < chickens.get(i).x)  
+    if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)  
           chickens.get(i).chSpd *= -1;
     chickens.get(i).display();
   }
