@@ -7,20 +7,38 @@ void draw_start_page(){
     //start game button
     fill(18,153,175);
     stroke(18,153,170);
-    ellipse(585,490,250,80);
+    ellipse(585,500,310,90);
     fill(255,255,255);
     textSize(35);
-    text("Start Game",500,500);
+    textFont(font);
+    text("Start Game",480,510);
     //guide button
     fill(18,153,175);
     stroke(18,153,170);
-    ellipse(585,590,250,80);
+    ellipse(585,610,310,90);
     fill(255,255,255);
     textSize(35);
-    text("Guide",535,600);
+    textFont(font);
+    text("Guide",520,625);
     if(mouseX>=460 && mouseY>=450 && mouseX<=710 && mouseY<=530){
+      fill(18,153,175);
+      stroke(18,153,170);
+      ellipse(585,490,350,110);
+      fill(255,255,255);
+      textFont(font60);
+      text("Start Game",450,510);
+      if(mousePressed==true)
+    flag = 2;
+    }
+   if(mouseX>=460 && mouseY>=550 && mouseX<=710 && mouseY<=630){
+      fill(18,153,175);
+      stroke(18,153,170);
+      ellipse(585,610,350,100);
+      fill(255,255,255);
+      textFont(font60);
+      text("Guide",510,630);
       if(mousePressed==true)
     flag = 1;
     }
-}
+   }
 }
