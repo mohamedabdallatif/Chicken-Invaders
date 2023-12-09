@@ -1,10 +1,9 @@
 PInvader invader;
-PImage background;
-PImage sound;
+PImage background, sound, mute, endLevelBackground;
 import ddf.minim.*;
 Minim minim;
-AudioPlayer player, playerX;
-PImage mute;
+AudioPlayer player, clickSound, killedInv;
+boolean InvadorHit = false;
 PFont font, font60, titleFont, titleFontX;
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -14,15 +13,17 @@ boolean isMute = false;
 start_page start = new start_page();
 Guide guide = new Guide();
 LevelOne levelOne = new LevelOne();
+EndLevel endLevel = new EndLevel();
 void setup() {
   size(1200, 900);
   minim = new Minim(this);
   player = minim.loadFile("sound.mp3");
-  playerX = minim.loadFile("click.wav");
+  killedInv = minim.loadFile("KilledInvador.wav");
   //player.play();
   smooth();
   imageMode(CENTER);
   background = loadImage("Space.jpg");
+  endLevelBackground = loadImage("EndLevelBackground.jpg");
   invader = new PInvader("Invador.png");
   font = loadFont("TimesNewRomanPS-BoldItalicMT-48.vlw");
   font60 = loadFont("TimesNewRomanPS-BoldItalicMT-60.vlw");
@@ -46,5 +47,8 @@ void draw() {
   }
   else if(flag==2){
     levelOne.DrawLevelOne();
+  }
+  else if(flag==3){
+    endLevel.display();
   }
 }

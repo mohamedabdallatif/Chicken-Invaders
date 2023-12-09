@@ -48,8 +48,8 @@ class Guide{
         text("Return home", 115, 848);
         if(mousePressed){
           flag = 0;
-          playerX = minim.loadFile("click.wav");
-          playerX.play();
+          clickSound = minim.loadFile("click.wav");
+          clickSound.play();
         }
      }
      else{
