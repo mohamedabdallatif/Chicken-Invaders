@@ -4,13 +4,13 @@ class Guide{
   String instructions = "you clear of chickens and other enemies, avoid eggs and other projectiles, collect power-ups to make your weapon stronger, get food items to obtain Rockets";
   String levels = "four levels; at the end of four levels, you’ll fight a boss.";
   String rewards = "Blast enough chickens and you’ll be rewarded with drumsticks. Collecting drumsticks can earn you a powerful missile which will let you get past particularly challenging sections";
+  PImage guide_background = loadImage("Space.jpg");
   
   void displayGuide() {
      imageMode(CENTER);
      strokeWeight(5);
      stroke(255);
-     background = loadImage("Space.jpg");
-     image(background, width/2, height/2);
+     image(guide_background, width/2, height/2);
      textFont(titleFont);
      textAlign(CENTER);
      textSize(60);

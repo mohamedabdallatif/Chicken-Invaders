@@ -1,6 +1,6 @@
 class Chicken {
  Egg egg = new Egg();
- boolean isHit = false;
+ boolean isHit;
  float x, y, curX, chSpd = 2;
  PImage chicken = loadImage("chicken.png");
  
@@ -8,6 +8,7 @@ class Chicken {
    this.x = xpos;
    this.y = ypos;
    this.curX = xpos;
+   this.isHit = false;
    this.egg.create(x + 35, y + 60);
  }
  

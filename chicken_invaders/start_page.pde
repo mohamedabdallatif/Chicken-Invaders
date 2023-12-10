@@ -4,51 +4,47 @@ class StartPage{
   PImage muteIcon = loadImage("mute.png");
   AudioPlayer player = minim.loadFile("sound.mp3");
   
-  void draw_start_page(){
+  void drawStartPage() {
    PImage start_page_background;
    start_page_background = loadImage("StartBackground.jpg"); 
    image(start_page_background, width / 2, height / 2);
-      stroke(255); 
-      strokeWeight(4);
-      textFont(titleFontX);
-      if(isMute){
-        image(muteIcon,50,50,60,60);
+   stroke(255); 
+   strokeWeight(4);
+   textFont(titleFontX);
+   if(isMute) image(muteIcon,50,50,60,60);
+   else image(soundIcon,50,50,60,60);
+   if (mouseX > 250 && mouseX < 440 && mouseY > 530 && mouseY < 590) {
+      fill(255, 165, 0);
+      beginShape();
+        vertex(270, 520);
+        vertex(430, 520); 
+        vertex(455, 560);
+        vertex(430, 600);
+        vertex(270, 600); 
+        vertex(245, 560);
+      endShape(CLOSE);
+      fill(0);
+      textSize(70);
+      text("PLAY",315, 585);
+      if(mousePressed){
+        flag = 2;
+        clickSound.play();
       }
-      else{
-        image(soundIcon,50,50,60,60);
-      }
-      if (mouseX > 250 && mouseX < 440 && mouseY > 530 && mouseY < 590) {
-        fill(255, 165, 0);
-        beginShape();
-          vertex(270, 520);
-          vertex(430, 520); 
-          vertex(455, 560);
-          vertex(430, 600);
-          vertex(270, 600); 
-          vertex(245, 560);
-        endShape(CLOSE);
-        fill(0);
-        textSize(70);
-        text("PLAY",315, 585);
-        if(mousePressed){
-          flag = 2;
-          clickSound.play();
-        }
-      } 
-      else {
-        fill(255, 215, 0);
-        beginShape();
-          vertex(280, 530);
-          vertex(420, 530); 
-          vertex(445, 560);
-          vertex(420, 590);
-          vertex(280, 590); 
-          vertex(255, 560);
-        endShape(CLOSE);
-        fill(0);
-        textSize(60);
-        text("PLAY",320, 580);
-    }
+    } 
+    else {
+      fill(255, 215, 0);
+      beginShape();
+        vertex(280, 530);
+        vertex(420, 530); 
+        vertex(445, 560);
+        vertex(420, 590);
+        vertex(280, 590); 
+        vertex(255, 560);
+      endShape(CLOSE);
+      fill(0);
+      textSize(60);
+      text("PLAY",320, 580);
+  }
     
     if (mouseX > 550 && mouseX < 750 && mouseY > 530 && mouseY < 590) {
       fill(255, 165, 0);

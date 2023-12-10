@@ -1,14 +1,21 @@
 class EndLevel{
   PImage endLevelBackground = loadImage("EndLevelBackground.jpg");
   
-  void display(){
+  void displayEndLevel(){
     imageMode(CENTER);
-    image(endLevelBackground, width/2, height/2, 800, 600);
+    image(endLevelBackground, width/2, height/2);
+    // play again button
     if (mouseX > 460 && mouseX < 660 && mouseY > 480 && mouseY < 560) {
       fill(255, 165, 0);
-      if(mousePressed){
-        flag = 2;
+      // if user click on this button
+      if(mousePressed) {
+        clickSound = minim.loadFile("click.wav");
         clickSound.play();
+        InvadorHit = false;
+        chickens.clear();
+        bullets.clear();
+        buildChickens();
+        flag = 2;
       }
     } 
     else  fill(255, 215, 0);
@@ -17,11 +24,12 @@ class EndLevel{
     textSize(70);
     text("PLAY AGAIN",480, 543);
     
+    // exit button
     if (mouseX > 460 && mouseX < 660 && mouseY > 580 && mouseY < 660) {
       fill(200, 50, 0); 
-      if(mousePressed){
-        exit();
+      if(mousePressed) {
         clickSound.play();
+        exit();
       }
     } 
     else  fill(255, 0, 0);
