@@ -1,54 +1,64 @@
-PInvader invader;
-PImage background, sound, mute, endLevelBackground;
 import ddf.minim.*;
 Minim minim;
-AudioPlayer player, clickSound, killedInv;
+PInvader invader;
+AudioPlayer clickSound;
+Guide guide;
+StartPage start;
+LevelOne levelOne;
+EndLevel endLevel;
+PImage background;
 boolean InvadorHit = false;
+int flag = 0;
 PFont font, font60, titleFont, titleFontX;
-ArrayList<Chicken> chickens = new ArrayList<Chicken>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-int eggTime = 0, randomEgg = 0;
-int flag=0;
-boolean isMute = false;
-start_page start = new start_page();
-Guide guide = new Guide();
-LevelOne levelOne = new LevelOne();
-EndLevel endLevel = new EndLevel();
+ArrayList<Chicken> chickens = new ArrayList<Chicken>();
+
 void setup() {
   size(1200, 900);
   minim = new Minim(this);
-  player = minim.loadFile("sound.mp3");
-  killedInv = minim.loadFile("KilledInvador.wav");
-  //player.play();
-  smooth();
-  imageMode(CENTER);
+  // loading sounds and fonts
+  clickSound = minim.loadFile("click.wav");
   background = loadImage("Space.jpg");
-  endLevelBackground = loadImage("EndLevelBackground.jpg");
   invader = new PInvader("Invador.png");
   font = loadFont("TimesNewRomanPS-BoldItalicMT-48.vlw");
   font60 = loadFont("TimesNewRomanPS-BoldItalicMT-60.vlw");
   titleFont = loadFont("ImprintMT-Shadow-70.vlw");
   titleFontX = loadFont("NiagaraEngraved-Reg-60.vlw");
+  // initialize Game Objects
+  init();
+  // prepare image properties for background
+  smooth();
+  imageMode(CENTER);
+}
 
-  for (int i = 0; i < 1100; i += 100) {
-   for (int j = 0; j < 300; j += 100) {
-    Chicken newChicken = new Chicken(i + 20, j + 20);
-    chickens.add(newChicken);
-   }
- }
+void init() {
+    // initailze all pages
+    guide = new Guide();
+    start = new StartPage();
+    levelOne = new LevelOne();
+    endLevel = new EndLevel();
+    // make chickens
+    for (int i = 0; i < 1100; i += 100) {
+     for (int j = 0; j < 300; j += 100) {
+      Chicken newChicken = new Chicken(i + 20, j + 20);
+      chickens.add(newChicken);
+     }
+    }
 }
 
 void draw() {
-  if(flag==0){
-    start.draw_start_page();
-  }
-  else if(flag==1){
-    guide.displayGuide();
-  }
-  else if(flag==2){
-    levelOne.DrawLevelOne();
-  }
-  else if(flag==3){
-    endLevel.display();
+  switch(flag) {
+    case 0:
+      start.draw_start_page();
+      break;
+    case 1:
+      guide.displayGuide();
+      break;
+    case 2:
+      levelOne.DrawLevelOne();
+      break;
+    case 3:
+      endLevel.display();
+      break;
   }
 }

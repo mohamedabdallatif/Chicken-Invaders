@@ -12,7 +12,8 @@ class Chicken {
  }
  
  void dropEgg() {
-    egg.display();
+    if(!isHit) 
+      egg.display();
  }
  
  void display() {
@@ -20,9 +21,5 @@ class Chicken {
      this.curX += chSpd;
      image(chicken, this.curX, y, 70, 90);
    }
- }
- 
- void hit() {
-   isHit = true;
  }
 }

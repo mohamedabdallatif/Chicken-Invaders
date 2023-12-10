@@ -1,18 +1,21 @@
-class start_page{
-void draw_start_page(){
+class StartPage{
+  boolean isMute = false;
+  PImage soundIcon = loadImage("sound.png");
+  PImage muteIcon = loadImage("mute.png");
+  AudioPlayer player = minim.loadFile("sound.mp3");
+  
+  void draw_start_page(){
    PImage start_page_background;
-   start_page_background = loadImage("StartBackground.jpg");
-   sound = loadImage("sound.png");
-   mute = loadImage("mute.png");
-   image(start_page_background, width/2, height/2);
+   start_page_background = loadImage("StartBackground.jpg"); 
+   image(start_page_background, width / 2, height / 2);
       stroke(255); 
       strokeWeight(4);
       textFont(titleFontX);
       if(isMute){
-      image(mute,50,50,60,60);
+        image(muteIcon,50,50,60,60);
       }
       else{
-      image(sound,50,50,60,60);
+        image(soundIcon,50,50,60,60);
       }
       if (mouseX > 250 && mouseX < 440 && mouseY > 530 && mouseY < 590) {
         fill(255, 165, 0);
@@ -29,7 +32,6 @@ void draw_start_page(){
         text("PLAY",315, 585);
         if(mousePressed){
           flag = 2;
-          clickSound = minim.loadFile("click.wav");
           clickSound.play();
         }
       } 
@@ -63,7 +65,6 @@ void draw_start_page(){
       text("GUIDE",605, 585);
       if(mousePressed){
         flag = 1;
-        clickSound = minim.loadFile("click.wav");
         clickSound.play();
       }
     } else {

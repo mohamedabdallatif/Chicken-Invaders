@@ -1,4 +1,5 @@
 class EndLevel{
+  PImage endLevelBackground = loadImage("EndLevelBackground.jpg");
   
   void display(){
     imageMode(CENTER);
@@ -7,7 +8,6 @@ class EndLevel{
       fill(255, 165, 0);
       if(mousePressed){
         flag = 2;
-        clickSound = minim.loadFile("click.wav");
         clickSound.play();
       }
     } 
@@ -21,7 +21,6 @@ class EndLevel{
       fill(200, 50, 0); 
       if(mousePressed){
         exit();
-        clickSound = minim.loadFile("click.wav");
         clickSound.play();
       }
     } 

@@ -13,11 +13,11 @@ class Bullet {
    image(bullet, x, y, 8, 70);
  }
 
- boolean offBullet() {
+ boolean bulletOutScreen() {
    return y < 0;
  }
  
- boolean hitsChicken(float targetX, float targetY) {
+ boolean hitChicken(float targetX, float targetY) {
    return dist(x, y, targetX, targetY) < 50;
  }
 }
