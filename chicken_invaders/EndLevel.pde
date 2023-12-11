@@ -9,6 +9,7 @@ class EndLevel{
       fill(255, 165, 0);
       // if user click on this button
       if(mousePressed) {
+        killedInv = minim.loadFile("KilledInvador.wav");
         clickSound = minim.loadFile("click.wav");
         clickSound.play();
         InvadorHit = false;

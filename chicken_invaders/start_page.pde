@@ -29,6 +29,7 @@ class StartPage{
       if(mousePressed){
         flag = 2;
         clickSound.play();
+        killedInv = minim.loadFile("KilledInvador.wav");
       }
     } 
     else {

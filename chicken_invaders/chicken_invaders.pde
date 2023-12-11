@@ -1,7 +1,7 @@
 import ddf.minim.*;
 Minim minim;
 PInvader invader;
-AudioPlayer clickSound, screemChicken;
+AudioPlayer clickSound, screemChicken, killedInv;
 Guide guide;
 StartPage start;
 LevelOne levelOne;

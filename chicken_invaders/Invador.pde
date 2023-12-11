@@ -1,8 +1,6 @@
 class PInvader {
   int prev = 0, x = 0;
   PImage invader, killedInvador;
-  AudioPlayer killedInv = minim.loadFile("KilledInvador.wav");
-  
   public PInvader(String invPath) {
     this.invader = loadImage(invPath);
     this.killedInvador = loadImage("KilledInvador.png");
