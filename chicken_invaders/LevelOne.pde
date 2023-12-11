@@ -1,5 +1,5 @@
 class LevelOne{
-  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0;
+  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, killed = 0;
   PImage background = loadImage("Space.jpg");
  
  void DrawLevelOne(){
@@ -26,7 +26,7 @@ class LevelOne{
       } while(chickens.get(randomEgg).isHit);
       eggTime = millis();
   }  
-  chickens.get(randomEgg).dropEgg();
+  if(randomEgg < chickens.size()) chickens.get(randomEgg).dropEgg();
  
   for (int i = 1; i < bullets.size(); i++) {
     Bullet b = bullets.get(i);
@@ -41,10 +41,13 @@ class LevelOne{
          screemChicken = minim.loadFile("chicken_screeming.mp3");
          screemChicken.play();
          chickens.get(j).isHit = true;
+         killed++;
          break;
       }
     }
+    
   }
+  if(killed == chickens.size())  flag = 4;
  }
   
   

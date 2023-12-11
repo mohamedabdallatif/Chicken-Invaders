@@ -1,5 +1,5 @@
 class Guide{
-  String title = "CHICKEN INVADORS";
+  String title = "CHICKEN INVADERS";
   String objective = "The game puts you at the forefront of a battle against invading intergalactic chickens, bent on revenge against the human race for our oppression of Earth chickens.";
   String instructions = "you clear of chickens and other enemies, avoid eggs and other projectiles, collect power-ups to make your weapon stronger, get food items to obtain Rockets";
   String levels = "four levels; at the end of four levels, you’ll fight a boss.";

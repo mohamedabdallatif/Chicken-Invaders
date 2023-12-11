@@ -11,9 +11,15 @@ class StartPage{
    stroke(255); 
    strokeWeight(4);
    textFont(titleFontX);
-   if(isMute) image(muteIcon,50,50,60,60);
-   else image(soundIcon,50,50,60,60);
-   if (mouseX > 250 && mouseX < 440 && mouseY > 530 && mouseY < 590) {
+   if(isMute){
+     player.pause();
+     image(muteIcon,50,50,60,60);
+    }
+    else{
+     player.play();
+     image(soundIcon,50,50,60,60);
+    }
+    if (mouseX > 250 && mouseX < 440 && mouseY > 530 && mouseY < 590) {
       fill(255, 165, 0);
       beginShape();
         vertex(270, 520);
@@ -29,7 +35,8 @@ class StartPage{
       if(mousePressed){
         flag = 2;
         clickSound.play();
-        killedInv = minim.loadFile("KilledInvador.wav");
+        player.pause();
+        killedInv = minim.loadFile("KilledInvader.wav");
       }
     } 
     else {
@@ -82,12 +89,6 @@ class StartPage{
     if(mouseX>=50 && mouseY>=50 && mouseX<=110 && mouseY<=110){
       if(mousePressed){
          isMute= !isMute;
-        if(isMute){
-           player.pause();
-        }
-        else{
-           player.play();
-        }
       }
     }
    } 

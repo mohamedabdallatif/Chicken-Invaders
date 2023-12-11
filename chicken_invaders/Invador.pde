@@ -1,13 +1,13 @@
 class PInvader {
   int prev = 0, x = 0;
-  PImage invader, killedInvador;
+  PImage invader, killedInvader;
   public PInvader(String invPath) {
     this.invader = loadImage(invPath);
-    this.killedInvador = loadImage("KilledInvador.png");
+    this.killedInvader = loadImage("KilledInvader.png");
   }
 
   void display() {
-    if(!InvadorHit){
+    if(!InvaderHit){
       if (mouseX > 60 && mouseX < width - 60) {
         image(invader, mouseX, height - 100, 120, 200);
       } else if (mouseX <= 60) {
@@ -21,7 +21,7 @@ class PInvader {
     else{
        if(millis() - prev < 1000){
           killedInv.play();
-          image(killedInvador, x, height - 100, 150, 150);
+          image(killedInvader, x, height - 100, 150, 150);
        }
        else flag = 3;
     }

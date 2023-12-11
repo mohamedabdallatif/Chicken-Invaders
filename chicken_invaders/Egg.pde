@@ -21,7 +21,7 @@ class Egg {
         breakTime = millis();
         y += egSpd; 
         if(x >= mouseX - 60 && x <= mouseX + 60 && y >= 700) {
-          InvadorHit = true;
+          InvaderHit = true;
           y = 1000;
         }
      }else if(millis() - breakTime <= 2000)
