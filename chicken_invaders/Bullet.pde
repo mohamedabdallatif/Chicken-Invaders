@@ -7,7 +7,6 @@ class Bullet {
    this.x = xpos;
    this.y = ypos;
    this.type = type;
-   nowT = millis();
    
  }
 
@@ -21,6 +20,7 @@ class Bullet {
      yy -= buSpd;
      image(rocketX, xx, yy, 200, 200);
      if(xx == 600 && yy == 300){
+        nowT = millis();
         y = -50;
         killed = chSize;
      }

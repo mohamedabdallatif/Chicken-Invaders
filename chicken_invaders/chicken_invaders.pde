@@ -43,7 +43,7 @@ void setup() {
 
 void buildChickens() {
   for (int i = 0; i < 1100; i += 100) {
-    for (int j = 0; j < 100; j += 100) {
+    for (int j = 0; j < 400; j += 100) {
       Chicken newChicken = new Chicken(i + 20, j + 100);
       chickens.add(newChicken);
     }
