@@ -1,8 +1,9 @@
 class Chicken {
  Egg egg = new Egg();
  boolean isHit;
- float x, y, curX, chSpd = 2, curY;
+ float x, y, curX, chSpd = 2, curY, smokeTime = 0;
  PImage chicken = loadImage("chicken.png");
+ PImage smoke = loadImage("smoke.png");
  
  public Chicken(float xpos, float ypos) {
    this.x = xpos;
@@ -22,7 +23,9 @@ class Chicken {
    if (!isHit) {
      this.curX += chSpd;
      image(chicken, this.curX, y, 70, 90);
+     smokeTime = millis();
    }
+   else if(millis() - smokeTime < 2000)   image(smoke, this.curX, y, 90, 90); 
  }
   void displayMoveY() {
    if (!isHit) {
