@@ -7,7 +7,7 @@ StartPage start;
 LevelOne levelOne;
 EndLevel endLevel;
 WinnerLevel  winnerLevel;
-int flag = 0;
+int flag = 0, score = 0;
 boolean InvaderHit;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -42,8 +42,8 @@ void setup() {
 
 void buildChickens() {
   for (int i = 0; i < 1100; i += 100) {
-    for (int j = 0; j < 400; j += 100) {
-      Chicken newChicken = new Chicken(i + 20, j + 20);
+    for (int j = 0; j < 100; j += 100) {
+      Chicken newChicken = new Chicken(i + 20, j + 100);
       chickens.add(newChicken);
     }
   } 

@@ -22,6 +22,7 @@ class EndLevel{
     else  fill(255, 215, 0);
     rect(460, 480, 215, 80, 50, 50, 50, 50);
     fill(0);
+    textFont(titleFontX);
     textSize(70);
     text("PLAY AGAIN",480, 543);
     

@@ -1,4 +1,7 @@
 class WinnerLevel{
+  int[] xPoints = {31, 40, 62, 43, 51, 31, 11, 19, 0, 22}; 
+  int[] yPoints = {0, 22, 22, 38, 60, 46, 60, 38, 22, 22}; 
+
   PImage winnerBackground = loadImage("WinLevelBackground.jpg");
   
   void displayWinnerLevel(){
@@ -10,7 +13,7 @@ class WinnerLevel{
     fill(255);
     textFont(titleFontX);
     textSize(50);
-    text("THE SCORE",560, 615);
+    text(str(score),600, 615);
     
     if (mouseX > 515 && mouseX < 690 && mouseY > 660 && mouseY < 710) {
       fill(225, 80, 80);
@@ -44,8 +47,23 @@ class WinnerLevel{
        fill(255);
        text("EXIT",760, 657);
      }
-     
-     
-    
+     fill(230, 240, 40);
+     if(score < 40)  drawStar(570, 480);
+     else if(score < 70){
+        drawStar(530, 480);
+        drawStar(610, 480);
+     }
+     else{
+        drawStar(490, 480);
+        drawStar(570, 480);
+        drawStar(650, 480);
+     }
+  }
+  void drawStar(int posx, int posy) {
+    beginShape();
+    for (int i = 0; i < xPoints.length; i++) {
+      vertex(xPoints[i] + posx, yPoints[i] + posy);
+    }
+    endShape(CLOSE);
   }
 }
