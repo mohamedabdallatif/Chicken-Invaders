@@ -25,7 +25,7 @@ class Chicken {
      image(chicken, this.curX, y, 70, 90);
      smokeTime = millis();
    }
-   else if(millis() - smokeTime < 2000)   image(smoke, this.curX, y, 90, 90); 
+   else if(millis() - smokeTime < 1000)   image(smoke, this.curX, y, 90, 90); 
  }
   void displayMoveY() {
    if (!isHit) {

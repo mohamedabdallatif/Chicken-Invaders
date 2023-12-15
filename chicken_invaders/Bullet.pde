@@ -16,7 +16,7 @@ class Bullet {
       y -= buSpd;     
       image(bullet, x, y, 8, 70);     
    }
-   if(type == 1 && score > 50){
+   if(type == 1 && score > 50 && nowT == 0){
      xx -= buSpd;
      yy -= buSpd;
      image(rocketX, xx, yy, 200, 200);

@@ -175,10 +175,8 @@ class AllLevels {
        //  chickens.get(j).isHit = true;
        //}
       } 
-      if(nowT != 0 && millis() - nowT > 2000){
-         println(nowT); 
-         flag = 4;  
-      }
+      if(nowT != 0 && millis() - nowT > 4000)  flag = 4;  
+      
   }
   
   void displayEndLevel(){
