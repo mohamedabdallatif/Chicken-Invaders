@@ -1,7 +1,8 @@
 class AllLevels {
   int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, allDead = 0, rocketLoading = 0;
-  int[] xPoints = {31, 40, 62, 43, 51, 31, 11, 19, 0, 22}; 
-  int[] yPoints = {0, 22, 22, 38, 60, 46, 60, 38, 22, 22};
+  float starAngle = 0;
+  float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
+  float[] yPoints = {-50, -20, -20, 10, 40, 20, 40, 10, -20, -20};
   PImage levelOnebackground = loadImage("Space.jpg");
   PImage levelTwobackground = loadImage("Space.jpg");
   PImage rocket = loadImage("Rocket.png");
@@ -9,35 +10,7 @@ class AllLevels {
   PImage winnerBackground = loadImage("WinLevelBackground.jpg");
 
  void displayLevelOne() {
-  imageMode(CENTER);
-  image(levelOnebackground, width/2, height/2);
-  invader.display();
-  imageMode(CORNER);
-  noFill();
-  rect(20, 20, 200, 20, 20, 20, 20, 20);
-  fill(0);
-  if(score >= 200)  score = 200;
-  rect(20, 20, score, 20, 20, 20, 20, 20);
-  noFill();
-  rect(900, 20, 200, 20, 20, 20, 20, 20);
-  fill(0);
-  if(score > 60)  rocketLoading = 200;
-  else rocketLoading = score * 3;
-  rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
-  image(rocket, 1120, 15, 30, 30);
-  textFont(font);
-  textSize(20);
-  fill(255);
-  if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
-  textFont(titleFont);
-  textSize(30);
-  text(str(score), 230, 20, 1100, 900);  
-  // draw chickens and move them 
-  for (int i = 0; i <= chickens.size()-1; i++) {
-    if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
-        chickens.get(i).chSpd *= -1;
-     chickens.get(i).displayMoveX();
-    }
+  base();
   
   if(mousePressed && millis() - previousMoment > 200){
     if (mouseButton == LEFT) {
@@ -100,37 +73,7 @@ class AllLevels {
   }
   
   void displayLevelTwo() {
-    imageMode(CENTER);
-    image(levelTwobackground, width/2, height/2);
-    invader.display();
-    // up row for rocket and score
-    imageMode(CORNER);
-    noFill();
-    rect(20, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(score >= 200)  score = 200;
-    rect(20, 20, score, 20, 20, 20, 20, 20);
-    noFill();
-    rect(900, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(score > 60)  rocketLoading = 200;
-    else rocketLoading = score * 3;
-    rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
-    image(rocket, 1120, 15, 30, 30);
-    textFont(font);
-    textSize(20);
-    fill(255);
-    if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
-    textFont(titleFont);
-    textSize(30);
-    text(str(score), 230, 20, 1100, 900);  
-    // draw chickens and move them 
-    for (int i = 0; i <= chickens.size()-1; i++) {
-    if (chickens.get(i).curY > chickens.get(i).y + 415 || chickens.get(i).curY < chickens.get(i).y)
-          chickens.get(i).chSpd *= -1;
-    chickens.get(i).displayMoveY();
-  }
-    
+    base();
     if(mousePressed && millis() - previousMoment > 200){
       if (mouseButton == LEFT) {
         bullets.add(new Bullet(mouseX, height - 200, 0));   
@@ -234,7 +177,7 @@ class AllLevels {
       fill(225, 80, 80);
       if(mousePressed) {
         clickSound.play();
-        exit();
+        flag = 5;
       }
      } 
     else   fill(255, 120, 120);
@@ -263,22 +206,59 @@ class AllLevels {
        text("EXIT",760, 657);
      }
      fill(230, 240, 40);
-     if(score < 40)  drawStar(570, 480);
+     if(score < 40)   drawStar(590, 500);
      else if(score < 70){
-        drawStar(530, 480);
-        drawStar(610, 480);
+        drawStar(550, 500);
+        drawStar(630, 500);
      }
      else{
-        drawStar(490, 480);
-        drawStar(570, 480);
-        drawStar(650, 480);
+        drawStar(510, 500);
+        drawStar(590, 500);
+        drawStar(670, 500);
      }
   }
   void drawStar(int posx, int posy) {
-    beginShape();
-    for (int i = 0; i < xPoints.length; i++) {
-      vertex(xPoints[i] + posx, yPoints[i] + posy);
+    pushMatrix();
+    translate(posx, posy);
+    rotate(starAngle);
+      beginShape();
+      for (int i = 0; i < xPoints.length; i++) {
+        vertex(xPoints[i], yPoints[i]);
+      }
+      endShape(CLOSE);
+   popMatrix();
+   starAngle += 0.04;
+  }
+  
+  void base(){  
+  imageMode(CENTER);
+  image(levelOnebackground, width/2, height/2);
+  invader.display();
+  imageMode(CORNER);
+  noFill();
+  rect(20, 20, 200, 20, 20, 20, 20, 20);
+  fill(0);
+  if(score >= 200)  score = 200;
+  rect(20, 20, score, 20, 20, 20, 20, 20);
+  noFill();
+  rect(900, 20, 200, 20, 20, 20, 20, 20);
+  fill(0);
+  if(score > 60)  rocketLoading = 200;
+  else rocketLoading = score * 3;
+  rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
+  image(rocket, 1120, 15, 30, 30);
+  textFont(font);
+  textSize(20);
+  fill(255);
+  if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
+  textFont(titleFont);
+  textSize(30);
+  text(str(score), 230, 20, 1100, 900);  
+  // draw chickens and move them 
+  for (int i = 0; i <= chickens.size()-1; i++) {
+    if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
+        chickens.get(i).chSpd *= -1;
+     chickens.get(i).displayMoveX();
     }
-    endShape(CLOSE);
   }
 }
