@@ -35,9 +35,9 @@ class AllLevels {
   // draw chickens and move them 
   for (int i = 0; i <= chickens.size()-1; i++) {
     if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
-          chickens.get(i).chSpd *= -1;
-    chickens.get(i).display();
-  }
+        chickens.get(i).chSpd *= -1;
+     chickens.get(i).displayMoveX();
+    }
   
   if(mousePressed && millis() - previousMoment > 200){
     if (mouseButton == LEFT) {
@@ -126,10 +126,10 @@ class AllLevels {
     text(str(score), 230, 20, 1100, 900);  
     // draw chickens and move them 
     for (int i = 0; i <= chickens.size()-1; i++) {
-      if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
-            chickens.get(i).chSpd *= -1;
-      chickens.get(i).display();
-    }
+    if (chickens.get(i).curY > chickens.get(i).y + 415 || chickens.get(i).curY < chickens.get(i).y)
+          chickens.get(i).chSpd *= -1;
+    chickens.get(i).displayMoveY();
+  }
     
     if(mousePressed && millis() - previousMoment > 200){
       if (mouseButton == LEFT) {
