@@ -3,6 +3,7 @@ class Bullet {
  float x, y, type, xx = 1200, yy = 900;
  PImage bullet = loadImage("Bullet.png");
  PImage rocketX = loadImage("Rocket.png");
+ 
  public Bullet(float xpos, float ypos, int type) {
    this.x = xpos;
    this.y = ypos;

@@ -4,9 +4,7 @@ PInvader invader;
 AudioPlayer clickSound, screemChicken, killedInv, explosion;
 Guide guide;
 StartPage start;
-LevelOne levelOne;
-EndLevel endLevel;
-WinnerLevel  winnerLevel;
+AllLevels allLevels;
 int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
 boolean InvaderHit;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
@@ -19,7 +17,7 @@ void setup() {
   // loading sounds and fonts
   clickSound = minim.loadFile("click.wav");
   screemChicken = minim.loadFile("chicken_screeming.mp3");
-    explosion = minim.loadFile("explosion.mp3");
+  explosion = minim.loadFile("explosion.mp3");
   invader = new PInvader("Invader.png");
   font = loadFont("TimesNewRomanPS-BoldItalicMT-48.vlw");
   font60 = loadFont("TimesNewRomanPS-BoldItalicMT-60.vlw");
@@ -30,20 +28,18 @@ void setup() {
   // initialize Game Objects
   guide = new Guide();
   start = new StartPage();
-  levelOne = new LevelOne();
-  endLevel = new EndLevel();
-  winnerLevel = new WinnerLevel();
+  allLevels = new AllLevels();
   // prepare battle field
   InvaderHit = false;
-  buildChickens();
+  buildChickens(0);
   // prepare image properties for background
   smooth();
   imageMode(CENTER);
 }
 
-void buildChickens() {
+void buildChickens(int factor) {
   for (int i = 0; i < 1100; i += 100) {
-    for (int j = 0; j < 400; j += 100) {
+    for (int j = 0; j < 400 + factor; j += 100) {
       Chicken newChicken = new Chicken(i + 20, j + 100);
       chickens.add(newChicken);
     }
@@ -60,13 +56,16 @@ void draw() {
       guide.displayGuide();
       break;
     case 2:
-      levelOne.DrawLevelOne();
+      allLevels.displayLevelOne();
       break;
     case 3:
-      endLevel.displayEndLevel();
+      allLevels.displayEndLevel();
       break;
     case 4:
-      winnerLevel.displayWinnerLevel();
+      allLevels.displayWinnerLevel();
+      break;
+    case 5:
+      allLevels.displayLevelTwo();
       break;
   }
 }
