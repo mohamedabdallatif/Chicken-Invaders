@@ -1,13 +1,13 @@
 import ddf.minim.*;
 Minim minim;
 PInvader invader;
-AudioPlayer clickSound, screemChicken, killedInv;
+AudioPlayer clickSound, screemChicken, killedInv, explosion;
 Guide guide;
 StartPage start;
 LevelOne levelOne;
 EndLevel endLevel;
 WinnerLevel  winnerLevel;
-int flag = 0, score = 0;
+int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
 boolean InvaderHit;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -19,6 +19,7 @@ void setup() {
   // loading sounds and fonts
   clickSound = minim.loadFile("click.wav");
   screemChicken = minim.loadFile("chicken_screeming.mp3");
+    explosion = minim.loadFile("explosion.mp3");
   invader = new PInvader("Invader.png");
   font = loadFont("TimesNewRomanPS-BoldItalicMT-48.vlw");
   font60 = loadFont("TimesNewRomanPS-BoldItalicMT-60.vlw");
@@ -47,6 +48,7 @@ void buildChickens() {
       chickens.add(newChicken);
     }
   } 
+  chSize = chickens.size();
 }
 
 void draw() {

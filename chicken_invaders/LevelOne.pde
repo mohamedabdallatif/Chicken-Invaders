@@ -1,7 +1,8 @@
 class LevelOne{
-  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, killed = 0;
+  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, allDead = 0;
   PImage background = loadImage("Space.jpg");
   PImage rocket = loadImage("Rocket.png");
+
   
  void DrawLevelOne(){
   imageMode(CENTER);
@@ -13,16 +14,18 @@ class LevelOne{
   fill(0);
   if(score >= 200)  score = 200;
   rect(20, 20, score, 20, 20, 20, 20, 20);
-  println(score);
   noFill();
   rect(900, 20, 200, 20, 20, 20, 20, 20);
   fill(0);
   rect(900, 20, score, 20, 20, 20, 20, 20);
   image(rocket, 1120, 15, 30, 30);
-  textFont(titleFont);
-  textSize(30);
+  textFont(font);
+  textSize(20);
   fill(255);
+  if(score > 50)    text("Try Rocket", 800, 20, 1100, 900);  
+  textFont(titleFont);
   text(str(score), 230, 20, 1100, 900);  
+  textSize(30);
   // draw chickens and move them 
   for (int i = 0; i <= chickens.size()-1; i++) {
     if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
@@ -31,8 +34,13 @@ class LevelOne{
   }
   
   if(mousePressed && millis() - previousMoment > 200){
+    if (mouseButton == LEFT) {
+      bullets.add(new Bullet(mouseX, height - 200, 0));   
+    } else if (mouseButton == RIGHT) {
+      bullets.add(new Bullet(mouseX, height - 200, 1));   
+    }
      previousMoment = millis();
-     bullets.add(new Bullet(mouseX, height - 200));   
+     
   }
   // choose random alive chicken and drop it's egg
   if(millis() - eggTime > 6000) {
@@ -61,10 +69,15 @@ class LevelOne{
          break;
       }
     }
-    
   }
-  if(killed == chickens.size())  flag = 4;
- }
-  
-  
+  if(killed == chickens.size()){
+     explosion.play();
+     for(int j = 0; j < chickens.size(); j++) {
+       chickens.get(j).isHit = true;
+     }
+    } 
+    if(millis() - nowT > 4000)  flag = 4;
+  }
 }
+  
+  

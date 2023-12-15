@@ -1,16 +1,30 @@
 class Bullet {
  int buSpd = 10;
- float x, y;
+ float x, y, type, xx = 1200, yy = 900;
  PImage bullet = loadImage("Bullet.png");
-
- public Bullet(float xpos, float ypos) {
+ PImage rocketX = loadImage("Rocket.png");
+ public Bullet(float xpos, float ypos, int type) {
    this.x = xpos;
    this.y = ypos;
+   this.type = type;
+   nowT = millis();
+   
  }
 
  void display() {
-   y -= buSpd;
-   image(bullet, x, y, 8, 70);
+   if(type == 0){
+      y -= buSpd;     
+      image(bullet, x, y, 8, 70);     
+   }
+   if(type == 1 && score > 50){
+     xx -= buSpd;
+     yy -= buSpd;
+     image(rocketX, xx, yy, 200, 200);
+     if(xx == 600 && yy == 300){
+        y = -50;
+        killed = chSize;
+     }
+   }
  }
 
  boolean bulletOutScreen() {
