@@ -62,6 +62,7 @@ void draw() {
       allLevels.displayEndLevel();
       break;
     case 4:
+    case 6:
       allLevels.displayWinnerLevel();
       break;
     case 5:
