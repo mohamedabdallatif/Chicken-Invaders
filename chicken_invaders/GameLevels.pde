@@ -1,8 +1,9 @@
 class GameLevels {
   int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0;
   int allDead = 0, rocketLoading = 0, winLevel = 0;
-  int[] xPoints = {31, 40, 62, 43, 51, 31, 11, 19, 0, 22}; 
-  int[] yPoints = {0, 22, 22, 38, 60, 46, 60, 38, 22, 22};
+  float starAngle = 0;
+  float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
+  float[] yPoints = {-50, -20, -20, 10, 40, 20, 40, 10, -20, -20};
   PImage rocket = loadImage("Rocket.png");
   PImage levelOnebackground = loadImage("Space.jpg");
   PImage levelTwobackground = loadImage("Space.jpg");
@@ -133,11 +134,11 @@ class GameLevels {
        previousMoment = millis();
     }
     // choose random alive chicken and drop it's egg
-    if(millis() - eggTime > 6000) {
-        do {
-          randomEgg = (int) random(0, chickens.size());
-        } while(chickens.get(randomEgg).isHit);
-        eggTime = millis();
+    if (millis() - eggTime > 6000) {
+      do {
+        randomEgg = (int) random(0, chickens.size());
+      } while (chickens.get(randomEgg).isHit);
+      eggTime = millis();
     }  
     if(randomEgg < chickens.size()) chickens.get(randomEgg).dropEgg();
     
@@ -153,15 +154,15 @@ class GameLevels {
         bullets.remove(i);
         continue;
       }
-      for(int j = 0; j < chickens.size(); j++) {
-        if(!chickens.get(j).isHit && b.hitChicken(chickens.get(j).curX, chickens.get(j).y)){
-           bullets.remove(i);
-           screemChicken = minim.loadFile("chicken_screeming.mp3");
-           screemChicken.play();
-           chickens.get(j).isHit = true;
-           killed++;
-           score += 10;
-           break;
+      for (int j = 0; j < chickens.size(); j++) {
+        if (!chickens.get(j).isHit && b.hitChicken(chickens.get(j).curX, chickens.get(j).y)) {
+          bullets.remove(i);
+          screemChicken = minim.loadFile("chicken_screeming.mp3");
+          screemChicken.play();
+          chickens.get(j).isHit = true;
+          killed++;
+          score += 10;
+          break;
         }
       }
     }
@@ -182,7 +183,7 @@ class GameLevels {
     if (mouseX > 460 && mouseX < 660 && mouseY > 480 && mouseY < 560) {
       fill(255, 165, 0);
       // if user click on this button
-      if(mousePressed) {
+      if (mousePressed) {
         killedInv = minim.loadFile("KilledInvader.wav");
         clickSound = minim.loadFile("click.wav");
         clickSound.play();
@@ -192,27 +193,25 @@ class GameLevels {
         buildChickens(0);
         flag = 2;
       }
-    } 
-    else  fill(255, 215, 0);
+    } else  fill(255, 215, 0);
     rect(460, 480, 215, 80, 50, 50, 50, 50);
     fill(0);
     textFont(titleFontX);
     textSize(70);
-    text("PLAY AGAIN",480, 543);
-    
+    text("PLAY AGAIN", 480, 543);
+
     // exit button
     if (mouseX > 460 && mouseX < 660 && mouseY > 580 && mouseY < 660) {
       fill(200, 50, 0); 
-      if(mousePressed) {
+      if (mousePressed) {
         clickSound.play();
         exit();
       }
-    } 
-    else  fill(255, 0, 0);
+    } else  fill(255, 0, 0);
     rect(500, 580, 120, 80, 50, 50, 50, 50);
     fill(0);
     textSize(70);
-    text("EXIT",530, 645);
+    text("EXIT", 530, 645);
   }
   
   void displayWinnerLevel(){
@@ -229,7 +228,13 @@ class GameLevels {
 
     if (mouseX > 515 && mouseX < 690 && mouseY > 660 && mouseY < 710) {
       fill(225, 80, 80);
-      if(mousePressed) {
+      if (mousePressed) {
+        for (int j = 0; j < chickens.size(); j++) {
+          chickens.get(j).isHit = false;
+        }
+        previousMoment = millis();
+        killed = 0;
+        nowT = 0;
         clickSound.play();
         InvaderHit = false;
         score = rocketLoading = killed = 0;
@@ -247,21 +252,20 @@ class GameLevels {
              break;
         }
       }
-     } 
-    else   fill(255, 120, 120);
+    } else   fill(255, 120, 120);
     rect(515, 660, 175, 50, 50, 50, 50, 50);
     fill(255);
     textFont(nextLevelButton);
     textSize(40);
-    text("Next Level",540, 700);
+    text("Next Level", 540, 700);
     textFont(font60);
     if (mouseX > 750 && mouseX < 820 && mouseY > 615 && mouseY < 685) {
       fill(200, 50, 0); 
       ellipse(785, 650, 70, 70);
       textSize(25);
       fill(255); 
-      text("EXIT",755, 657);
-      if(mousePressed) {
+      text("EXIT", 755, 657);
+      if (mousePressed) {
         clickSound.play();
         exit();
       }
