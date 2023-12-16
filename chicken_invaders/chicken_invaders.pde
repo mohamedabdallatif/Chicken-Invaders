@@ -2,11 +2,10 @@ import ddf.minim.*;
 Minim minim;
 PInvader invader;
 AudioPlayer clickSound, screemChicken, killedInv, explosion;
-Guide guide;
-StartPage start;
-AllLevels allLevels;
-int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
+GameBegining gameBegining;
+GameLevels gameLevels;
 boolean InvaderHit;
+int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
@@ -25,47 +24,39 @@ void setup() {
   titleFontX = loadFont("NiagaraEngraved-Reg-60.vlw");
   nextLevelButton = loadFont("AgencyFB-Reg-48.vlw");
   levelName = loadFont("AgencyFB-Reg-48.vlw");
-  // initialize Game Objects
-  guide = new Guide();
-  start = new StartPage();
-  allLevels = new AllLevels();
-  // prepare battle field
+  // Setup Battle Objects & Field
+  gameBegining = new GameBegining();
+  gameLevels = new GameLevels();
   InvaderHit = false;
   buildChickens(0);
-  // prepare image properties for background
-  smooth();
-  imageMode(CENTER);
 }
 
 void buildChickens(int factor) {
-  for (int i = 0; i < 1100; i += 100) {
-    for (int j = 0; j < 400 + factor; j += 100) {
-      Chicken newChicken = new Chicken(i + 20, j + 100);
-      chickens.add(newChicken);
-    }
-  } 
+  for (int i = 0; i < 1100; i += 100)
+    for (int j = 0; j < 400 + factor; j += 100)
+      chickens.add(new Chicken(i + 20, j + 100));
   chSize = chickens.size();
 }
 
 void draw() {
   switch(flag) {
     case 0:
-      start.drawStartPage();
+      gameBegining.drawStartPage();
       break;
     case 1:
-      guide.displayGuide();
+      gameBegining.drawGuidePage();
       break;
     case 2:
-      allLevels.displayLevelOne();
+      gameLevels.displayLevelOne();
       break;
     case 3:
-      allLevels.displayEndLevel();
+      gameLevels.displayLevelTwo();
       break;
     case 4:
-      allLevels.displayWinnerLevel();
+      gameLevels.displayWinnerLevel();
       break;
     case 5:
-      allLevels.displayLevelTwo();
+      gameLevels.displayEndLevel();
       break;
   }
 }

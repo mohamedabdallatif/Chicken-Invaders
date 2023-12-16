@@ -9,11 +9,14 @@ class PInvader {
   void display() {
     if(!InvaderHit){
       if (mouseX > 60 && mouseX < width - 60) {
-        image(invader, mouseX, height - 100, 120, 200);
+        if (flag - 1 == 1) image(invader, mouseX, height - 100, 120, 200);
+        else if (flag - 1 == 2) image(invader, mouseX, mouseY, 120, 200);
       } else if (mouseX <= 60) {
-        image(invader, 60, height - 100, 120, 200);
+        if (flag - 1 == 1) image(invader, 60, height - 100, 120, 200);
+        else if (flag - 1 == 2) image(invader, 60, mouseY, 120, 200);
       } else {
-        image(invader, width - 60, height -100, 120, 200);
+        if (flag - 1 == 1) image(invader, width - 60, height -100, 120, 200);
+        else if (flag - 1 == 2) image(invader, width - 60, mouseY, 120, 200);
       } 
       prev = millis();
       x = mouseX;
@@ -21,9 +24,14 @@ class PInvader {
     else{
        if(millis() - prev < 1000){
           killedInv.play();
-          image(killedInvader, x, height - 100, 150, 150);
+          if (flag - 1 == 1) image(killedInvader, x, height - 100, 150, 150);
+          else if (flag - 1 == 2) image(killedInvader, mouseX, mouseY, 150, 150);
        }
-       else flag = 3;
+       else flag = 5;
     }
   }
+  
+  boolean touchChicken(float targetX, float targetY) {
+   return dist(mouseX, mouseY, targetX, targetY) < 80;
+ }
 }

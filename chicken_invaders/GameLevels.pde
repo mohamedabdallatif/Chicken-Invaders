@@ -1,105 +1,97 @@
-class AllLevels {
-  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, allDead = 0, rocketLoading = 0;
+class GameLevels {
+  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0;
+  int allDead = 0, rocketLoading = 0, winLevel = 0;
   int[] xPoints = {31, 40, 62, 43, 51, 31, 11, 19, 0, 22}; 
   int[] yPoints = {0, 22, 22, 38, 60, 46, 60, 38, 22, 22};
+  PImage rocket = loadImage("Rocket.png");
   PImage levelOnebackground = loadImage("Space.jpg");
   PImage levelTwobackground = loadImage("Space.jpg");
-  PImage rocket = loadImage("Rocket.png");
   PImage endLevelBackground = loadImage("EndLevelBackground.jpg"); 
   PImage winnerBackground = loadImage("WinLevelBackground.jpg");
 
  void displayLevelOne() {
-  imageMode(CENTER);
-  image(levelOnebackground, width/2, height/2);
-  invader.display();
-  imageMode(CORNER);
-  noFill();
-  rect(20, 20, 200, 20, 20, 20, 20, 20);
-  fill(0);
-  if(score >= 200)  score = 200;
-  rect(20, 20, score, 20, 20, 20, 20, 20);
-  noFill();
-  rect(900, 20, 200, 20, 20, 20, 20, 20);
-  fill(0);
-  if(score > 60)  rocketLoading = 200;
-  else rocketLoading = score * 3;
-  rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
-  image(rocket, 1120, 15, 30, 30);
-  textFont(font);
-  textSize(20);
-  fill(255);
-  if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
-  textFont(titleFont);
-  textSize(30);
-  text(str(score), 230, 20, 1100, 900);  
-  // draw chickens and move them 
-  for (int i = 0; i <= chickens.size()-1; i++) {
-    if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
-        chickens.get(i).chSpd *= -1;
-     chickens.get(i).displayMoveX();
+    // up row for score and rocket
+    smooth();
+    imageMode(CENTER);
+    image(levelOnebackground, width/2, height/2);
+    invader.display();
+    imageMode(CORNER);
+    noFill();
+    rect(20, 20, 200, 20, 20, 20, 20, 20);
+    fill(0);
+    if(score >= 200)  score = 200;
+    rect(20, 20, score, 20, 20, 20, 20, 20);
+    noFill();
+    rect(900, 20, 200, 20, 20, 20, 20, 20);
+    fill(0);
+    if(score > 60)  rocketLoading = 200;
+    else rocketLoading = score * 3;
+    rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
+    image(rocket, 1120, 15, 30, 30);
+    textFont(font);
+    textSize(20);
+    fill(255);
+    if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
+    textFont(titleFont);
+    textSize(30);
+    text(str(score), 230, 20, 1100, 900);  
+    
+    // draw chickens and move them 
+    for (int i = 0; i <= chickens.size()-1; i++) {
+      if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
+          chickens.get(i).chSpd *= -1;
+       chickens.get(i).display();
+      }
+    
+    // when invader cliked to launch new bullet
+    if(mousePressed && millis() - previousMoment > 200){
+      if (mouseButton == LEFT) {
+        bullets.add(new Bullet(mouseX, height - 200, 0));   
+      } else if (mouseButton == RIGHT && score >= 70) {
+        bullets.add(new Bullet(mouseX, height - 200, 1));   
+      }
+       previousMoment = millis();
     }
-  
-  if(mousePressed && millis() - previousMoment > 200){
-    if (mouseButton == LEFT) {
-      bullets.add(new Bullet(mouseX, height - 200, 0));   
-    } else if (mouseButton == RIGHT && score >= 70) {
-      bullets.add(new Bullet(mouseX, height - 200, 1));   
-    }
-     previousMoment = millis();
-     
-  }
-  // choose random alive chicken and drop it's egg
-  if(millis() - eggTime > 6000) {
-      do {
-        randomEgg = (int) random(0, chickens.size());
-      } while(chickens.get(randomEgg).isHit);
-      eggTime = millis();
-  }  
-  if(randomEgg < chickens.size()) chickens.get(randomEgg).dropEgg();
- 
-  for (int i = 1; i < bullets.size(); i++) {
-    Bullet b = bullets.get(i);
-    b.display();
-    if (b.bulletOutScreen()) {
-      bullets.remove(i);
-      continue;
-    }
-    for(int j = 0; j < chickens.size(); j++) {
-      if(!chickens.get(j).isHit && b.hitChicken(chickens.get(j).curX, chickens.get(j).y)){
-         bullets.remove(i);
-         screemChicken = minim.loadFile("chicken_screeming.mp3");
-         screemChicken.play();
-         chickens.get(j).isHit = true;
-         killed++;
-         score += 10;
-         break;
+    
+    // choose random alive chicken and drop it's egg
+    if(millis() - eggTime > 6000) {
+        do {
+          randomEgg = (int) random(0, chickens.size());
+        } while(chickens.get(randomEgg).isHit);
+        eggTime = millis();
+    }  
+    if(randomEgg < chickens.size()) chickens.get(randomEgg).dropEgg();
+   
+    for (int i = 0; i < bullets.size(); i++) {
+      Bullet b = bullets.get(i);
+      b.display();
+      if (b.bulletOutScreen()) {
+        bullets.remove(i);
+        continue;
+      }
+      for(int j = 0; j < chickens.size(); j++) {
+        if(!chickens.get(j).isHit && b.hitChicken(chickens.get(j).curX, chickens.get(j).y)) {
+           bullets.remove(i);
+           screemChicken = minim.loadFile("chicken_screeming.mp3");
+           screemChicken.play();
+           chickens.get(j).isHit = true;
+           killed++;
+           score += 10;
+           break;
+        }
       }
     }
-  }
-  if(killed == chickens.size()){
-    /*
-        killedInv = minim.loadFile("KilledInvader.wav");
-        clickSound = minim.loadFile("click.wav");
-        clickSound.play();
-        InvaderHit = false;
-        chickens.clear();
-        bullets.clear();
-        buildChickens(100);
-        flag = 2;
-    */
-     println(nowT);
-     explosion.play();
-     for(int j = 0; j < chickens.size(); j++) {
-       chickens.get(j).isHit = true;
-     }
+    if(killed == chickens.size()) {
+       explosion = minim.loadFile("explosion.mp3");
+       explosion.play();
+       winLevel = 1;
+       flag = 4;
     } 
-    if(nowT != 0 && millis() - nowT > 2000){
-       println(nowT); 
-       flag = 5;  
-    }
+    //if(nowT != 0 && millis() - nowT > 2000) flag = 5;
   }
   
   void displayLevelTwo() {
+    smooth();
     imageMode(CENTER);
     image(levelTwobackground, width/2, height/2);
     invader.display();
@@ -126,19 +118,19 @@ class AllLevels {
     text(str(score), 230, 20, 1100, 900);  
     // draw chickens and move them 
     for (int i = 0; i <= chickens.size()-1; i++) {
-    if (chickens.get(i).curY > chickens.get(i).y + 415 || chickens.get(i).curY < chickens.get(i).y)
-          chickens.get(i).chSpd *= -1;
-    chickens.get(i).displayMoveY();
+      if (chickens.get(i).curY > chickens.get(i).y + 100 || chickens.get(i).curY < chickens.get(i).y)
+            chickens.get(i).chSpd *= -1;
+      chickens.get(i).display();
   }
     
     if(mousePressed && millis() - previousMoment > 200){
       if (mouseButton == LEFT) {
-        bullets.add(new Bullet(mouseX, height - 200, 0));   
+        bullets.add(new Bullet(mouseX - 50, mouseY, 0));
+        bullets.add(new Bullet(mouseX + 45, mouseY, 0));
       } else if (mouseButton == RIGHT && score >= 70) {
-        bullets.add(new Bullet(mouseX, height - 200, 1));   
+        bullets.add(new Bullet(mouseX, height - 200, 1));
       }
        previousMoment = millis();
-       
     }
     // choose random alive chicken and drop it's egg
     if(millis() - eggTime > 6000) {
@@ -148,6 +140,11 @@ class AllLevels {
         eggTime = millis();
     }  
     if(randomEgg < chickens.size()) chickens.get(randomEgg).dropEgg();
+    
+    for(Chicken chicken : chickens) {
+      if(!chicken.isHit && invader.touchChicken(chicken.x, chicken.curY))
+        InvaderHit = true;
+    }
    
     for (int i = 1; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
@@ -168,18 +165,17 @@ class AllLevels {
         }
       }
     }
-    if(killed == chickens.size()){
-       println(nowT);
+    if(killed == chickens.size()) {
+       explosion = minim.loadFile("explosion.mp3");
        explosion.play();
-       //for(int j = 0; j < chickens.size(); j++) {
-       //  chickens.get(j).isHit = true;
-       //}
-      } 
-      if(nowT != 0 && millis() - nowT > 4000)  flag = 4;  
-      
+       winLevel = 2;
+       flag = 5;
+    } 
+    //if(nowT != 0 && millis() - nowT > 4000)  flag = 4;
   }
   
   void displayEndLevel(){
+    smooth();
     imageMode(CENTER);
     image(endLevelBackground, width/2, height/2);
     // play again button
@@ -193,7 +189,7 @@ class AllLevels {
         InvaderHit = false;
         chickens.clear();
         bullets.clear();
-        buildChickens(200);
+        buildChickens(0);
         flag = 2;
       }
     } 
@@ -220,21 +216,36 @@ class AllLevels {
   }
   
   void displayWinnerLevel(){
+    smooth();
     imageMode(CENTER);
     image(winnerBackground, width/2, height/2);
     textFont(levelName);
     textSize(70);
-    text("Level 1",535, 450);
+    text("Level " + str(winLevel),535, 450);
     fill(255);
     textFont(titleFontX);
     textSize(50);
     text(str(score),600, 615);
-    
+
     if (mouseX > 515 && mouseX < 690 && mouseY > 660 && mouseY < 710) {
       fill(225, 80, 80);
       if(mousePressed) {
         clickSound.play();
-        exit();
+        InvaderHit = false;
+        score = rocketLoading = killed = 0;
+        chickens.clear();
+        bullets.clear();
+        switch(winLevel) {
+           case 1:
+             buildChickens(100);
+             flag = 3;
+             break;
+           case 2:
+             flag = 5;
+             break;
+           case 3:
+             break;
+        }
       }
      } 
     else   fill(255, 120, 120);
@@ -274,11 +285,11 @@ class AllLevels {
         drawStar(650, 480);
      }
   }
+  
   void drawStar(int posx, int posy) {
     beginShape();
-    for (int i = 0; i < xPoints.length; i++) {
+    for (int i = 0; i < xPoints.length; i++)
       vertex(xPoints[i] + posx, yPoints[i] + posy);
-    }
     endShape(CLOSE);
   }
 }

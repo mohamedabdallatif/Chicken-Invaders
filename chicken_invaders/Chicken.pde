@@ -1,7 +1,7 @@
 class Chicken {
  Egg egg = new Egg();
  boolean isHit;
- float x, y, curX, chSpd = 2, curY, smokeTime = 0;
+ float x, y, curX, curY, chSpd = 2, smokeTime = 0;
  PImage chicken = loadImage("chicken.png");
  PImage smoke = loadImage("smoke.png");
  
@@ -19,18 +19,33 @@ class Chicken {
       egg.display();
  }
  
- void displayMoveX() {
-   if (!isHit) {
-     this.curX += chSpd;
-     image(chicken, this.curX, y, 70, 90);
+ void display() {
+    if (!isHit) {
+     if(flag - 1 == 1) {
+       this.curX += chSpd;
+       image(chicken, this.curX, y, 70, 90);
+     }
+     else if(flag - 1 == 2) {
+       this.curY += chSpd;
+       image(chicken, x, this.curY, 70, 90);
+     }
      smokeTime = millis();
    }
-   else if(millis() - smokeTime < 1000)   image(smoke, this.curX, y, 90, 90); 
+   else if(millis() - smokeTime < 1000)   image(smoke, this.curX, y, 90, 90);
  }
-  void displayMoveY() {
-   if (!isHit) {
-     this.curY += chSpd;
-     image(chicken, x, this.curY, 70, 90);
-   }
- }
+ 
+ //void displayMoveX() {
+ //  if (!isHit) {
+ //    this.curX += chSpd;
+ //    image(chicken, this.curX, y, 70, 90);
+ //    smokeTime = millis();
+ //  }
+ //  else if(millis() - smokeTime < 1000)   image(smoke, this.curX, y, 90, 90); 
+ //}
+ // void displayMoveY() {
+ //  if (!isHit) {
+ //    this.curY += chSpd;
+ //    image(chicken, x, this.curY, 70, 90);
+ //  }
+ //}
 }

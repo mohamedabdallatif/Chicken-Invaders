@@ -14,9 +14,9 @@ class Egg {
    }
    
    void display() {
-     if(eggType == 1)   usedEgg = wEgg;
-     else   usedEgg = rEgg;
-     if(y < height - 35){
+     if (eggType == 1) usedEgg = wEgg;
+     else usedEgg = rEgg;
+     if (y < height - 35){
         image(usedEgg, x, y, 25, 40);
         breakTime = millis();
         y += egSpd; 
@@ -24,9 +24,7 @@ class Egg {
           InvaderHit = true;
           y = 1000;
         }
-     }else if(millis() - breakTime <= 2000)
-       image(omlet, x, y, 75, 30);
-       
-     
+     } else if (millis() - breakTime <= 2000)
+         image(omlet, x, y, 75, 30);
   }
 }

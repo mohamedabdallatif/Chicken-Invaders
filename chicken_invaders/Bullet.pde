@@ -8,13 +8,12 @@ class Bullet {
    this.x = xpos;
    this.y = ypos;
    this.type = type;
-   
  }
 
  void display() {
    if(type == 0){
-      y -= buSpd;     
-      image(bullet, x, y, 8, 70);     
+      y -= buSpd;
+      image(bullet, x, y, 8, 70);
    }
    if(type == 1 && score > 50 && nowT == 0){
      xx -= buSpd;
