@@ -31,6 +31,11 @@ void setup() {
   buildChickens(0);
 }
 
+void KillAllChickens(){
+    for(Chicken chicken : chickens)
+        chicken.isHit = true;
+}
+
 void buildChickens(int factor) {
   for (int i = 0; i < 1100; i += 100)
     for (int j = 0; j < 400 + factor; j += 100)

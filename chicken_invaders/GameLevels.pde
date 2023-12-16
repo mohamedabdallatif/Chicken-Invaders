@@ -11,31 +11,7 @@ class GameLevels {
   PImage winnerBackground = loadImage("WinLevelBackground.jpg");
 
  void displayLevelOne() {
-    // up row for score and rocket
-    smooth();
-    imageMode(CENTER);
-    image(levelOnebackground, width/2, height/2);
-    invader.display();
-    imageMode(CORNER);
-    noFill();
-    rect(20, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(score >= 200)  score = 200;
-    rect(20, 20, score, 20, 20, 20, 20, 20);
-    noFill();
-    rect(900, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(score > 60)  rocketLoading = 200;
-    else rocketLoading = score * 3;
-    rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
-    image(rocket, 1120, 15, 30, 30);
-    textFont(font);
-    textSize(20);
-    fill(255);
-    if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
-    textFont(titleFont);
-    textSize(30);
-    text(str(score), 230, 20, 1100, 900);  
+     baseForAllLevels();      
     
     // draw chickens and move them 
     for (int i = 0; i <= chickens.size()-1; i++) {
@@ -78,51 +54,27 @@ class GameLevels {
            chickens.get(j).isHit = true;
            killed++;
            score += 10;
-           break;
+           //break;
         }
       }
     }
-    if(killed == chickens.size()) {
-       explosion = minim.loadFile("explosion.mp3");
-       explosion.play();
+    if(killed == chSize) {
        winLevel = 1;
-       flag = 4;
-    } 
-    //if(nowT != 0 && millis() - nowT > 2000) flag = 5;
+       KillAllChickens();
+
+  } 
+    if(killed == chSize && nowT != 0 && millis() - nowT > 2000)   flag = 4; 
+    
   }
   
   void displayLevelTwo() {
-    smooth();
-    imageMode(CENTER);
-    image(levelTwobackground, width/2, height/2);
-    invader.display();
-    // up row for rocket and score
-    imageMode(CORNER);
-    noFill();
-    rect(20, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(score >= 200)  score = 200;
-    rect(20, 20, score, 20, 20, 20, 20, 20);
-    noFill();
-    rect(900, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(score > 60)  rocketLoading = 200;
-    else rocketLoading = score * 3;
-    rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
-    image(rocket, 1120, 15, 30, 30);
-    textFont(font);
-    textSize(20);
-    fill(255);
-    if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
-    textFont(titleFont);
-    textSize(30);
-    text(str(score), 230, 20, 1100, 900);  
+     baseForAllLevels();     
     // draw chickens and move them 
     for (int i = 0; i <= chickens.size()-1; i++) {
       if (chickens.get(i).curY > chickens.get(i).y + 100 || chickens.get(i).curY < chickens.get(i).y)
             chickens.get(i).chSpd *= -1;
       chickens.get(i).display();
-  }
+    }
     
     if(mousePressed && millis() - previousMoment > 200){
       if (mouseButton == LEFT) {
@@ -166,13 +118,13 @@ class GameLevels {
         }
       }
     }
-    if(killed == chickens.size()) {
-       explosion = minim.loadFile("explosion.mp3");
-       explosion.play();
+    if(killed == chSize) {
        winLevel = 2;
-       flag = 5;
+       KillAllChickens();
+      
     } 
-    //if(nowT != 0 && millis() - nowT > 4000)  flag = 4;
+    if(killed == chSize && nowT != 0 && millis() - nowT > 2000)   flag = 4;
+     
   }
   
   void displayEndLevel(){
@@ -184,12 +136,7 @@ class GameLevels {
       fill(255, 165, 0);
       // if user click on this button
       if (mousePressed) {
-        killedInv = minim.loadFile("KilledInvader.wav");
-        clickSound = minim.loadFile("click.wav");
-        clickSound.play();
-        InvaderHit = false;
-        chickens.clear();
-        bullets.clear();
+        baseForEndAndWin();
         buildChickens(0);
         flag = 2;
       }
@@ -232,21 +179,15 @@ class GameLevels {
         for (int j = 0; j < chickens.size(); j++) {
           chickens.get(j).isHit = false;
         }
-        previousMoment = millis();
-        killed = 0;
-        nowT = 0;
-        clickSound.play();
-        InvaderHit = false;
-        score = rocketLoading = killed = 0;
-        chickens.clear();
-        bullets.clear();
+        baseForEndAndWin();
         switch(winLevel) {
            case 1:
              buildChickens(100);
              flag = 3;
              break;
            case 2:
-             flag = 5;
+             exit();  // untill make monster level
+             //flag = 5;
              break;
            case 3:
              break;
@@ -278,22 +219,70 @@ class GameLevels {
        text("EXIT",760, 657);
      }
      fill(230, 240, 40);
-     if(score < 40)  drawStar(570, 480);
+     if(score < 40)   drawStar(590, 500);
      else if(score < 70){
-        drawStar(530, 480);
-        drawStar(610, 480);
+        drawStar(550, 500);
+        drawStar(630, 500);
      }
      else{
-        drawStar(490, 480);
-        drawStar(570, 480);
-        drawStar(650, 480);
+        drawStar(510, 500);
+        drawStar(590, 500);
+        drawStar(670, 500);
      }
   }
   
+  void baseForAllLevels(){
+    smooth();
+    imageMode(CENTER);
+    image(levelOnebackground, width/2, height/2);
+    invader.display();
+    imageMode(CORNER);
+    noFill();
+    rect(20, 20, 200, 20, 20, 20, 20, 20);
+    fill(0);
+    if(score >= 200)  score = 200;
+    rect(20, 20, score, 20, 20, 20, 20, 20);
+    noFill();
+    rect(900, 20, 200, 20, 20, 20, 20, 20);
+    fill(0);
+    if(score > 60)  rocketLoading = 200;
+    else rocketLoading = score * 3;
+    rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
+    image(rocket, 1120, 15, 30, 30);
+    textFont(font);
+    textSize(20);
+    fill(255);
+    if(score > 60)    text("Try Rocket", 800, 20, 1100, 900);  
+    textFont(titleFont);
+    textSize(30);
+    text(str(score), 230, 20, 1100, 900);
+   
+}    
+
+
+  void baseForEndAndWin(){
+        killedInv = minim.loadFile("KilledInvader.wav");
+        clickSound = minim.loadFile("click.wav");
+        previousMoment = millis();
+        killed = 0;
+        nowT = 0;
+        explosion = minim.loadFile("explosion.mp3");
+        clickSound.play();
+        InvaderHit = false;
+        score = rocketLoading = killed = 0;
+        chickens.clear();
+        bullets.clear();
+  }
   void drawStar(int posx, int posy) {
-    beginShape();
-    for (int i = 0; i < xPoints.length; i++)
-      vertex(xPoints[i] + posx, yPoints[i] + posy);
-    endShape(CLOSE);
+    pushMatrix();
+    translate(posx, posy);
+    rotate(starAngle);
+      beginShape();
+      for (int i = 0; i < xPoints.length; i++) {
+        vertex(xPoints[i], yPoints[i]);
+      }
+      endShape(CLOSE);
+   popMatrix();
+   starAngle += 0.04;
   }
 }

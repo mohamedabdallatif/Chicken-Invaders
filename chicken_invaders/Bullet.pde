@@ -19,12 +19,14 @@ class Bullet {
      xx -= buSpd;
      yy -= buSpd;
      image(rocketX, xx, yy, 200, 200);
+     explosion.play();
      if(xx == 600 && yy == 300){
-        nowT = millis();
         y = -50;
         killed = chSize;
      }
    }
+   if(killed == chSize)   nowT = millis();
+
  }
 
  boolean bulletOutScreen() {
