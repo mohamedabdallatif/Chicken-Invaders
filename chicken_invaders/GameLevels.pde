@@ -277,6 +277,7 @@ class GameLevels {
     pushMatrix();
     translate(posx, posy);
     rotate(starAngle);
+    scale(sin(starAngle/ 10));
       beginShape();
       for (int i = 0; i < xPoints.length; i++) {
         vertex(xPoints[i], yPoints[i]);
