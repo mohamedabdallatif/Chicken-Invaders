@@ -4,6 +4,7 @@ PInvader invader;
 AudioPlayer clickSound, screemChicken, killedInv, explosion;
 GameBegining gameBegining;
 GameLevels gameLevels;
+Monster monster;
 boolean InvaderHit;
 int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
@@ -27,6 +28,7 @@ void setup() {
   // Setup Battle Objects & Field
   gameBegining = new GameBegining();
   gameLevels = new GameLevels();
+  monster = new Monster();
   InvaderHit = false;
   buildChickens(0);
 }
@@ -62,6 +64,8 @@ void draw() {
       break;
     case 5:
       gameLevels.displayEndLevel();
+    case 6:
+      gameLevels.monsterLevel();
       break;
   }
 }

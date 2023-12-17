@@ -1,14 +1,15 @@
 class GameLevels {
-  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0;
+  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, monsterLife = 0;
   int allDead = 0, rocketLoading = 0, winLevel = 0;
   float starAngle = 0;
   float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
   float[] yPoints = {-50, -20, -20, 10, 40, 20, 40, 10, -20, -20};
   PImage rocket = loadImage("Rocket.png");
-  PImage levelOnebackground = loadImage("Space.jpg");
-  PImage levelTwobackground = loadImage("Space.jpg");
+  PImage levelsbackground = loadImage("Space.jpg");
   PImage endLevelBackground = loadImage("EndLevelBackground.jpg"); 
   PImage winnerBackground = loadImage("WinLevelBackground.jpg");
+  PImage monsterBackground = loadImage("BossSpace.jpg");
+  
 
  void displayLevelOne() {
      baseForAllLevels();      
@@ -127,6 +128,36 @@ class GameLevels {
      
   }
   
+  
+  void monsterLevel(){
+    smooth();
+    imageMode(CENTER);
+    image(monsterBackground, width/2, height/2);
+      
+    // change the speed of monster...    
+    if(monster.monsterSpeedTime - millis() <= 0){
+       monster.monsterSpeedTime = millis() + 4000;
+       monster.monsterSpeed = (int)random(0, 10);
+    }
+    else{
+        monster.display();
+      
+      
+    }
+    
+    invader.display();
+    noFill();
+    rect(450, 20, 200, 20, 20, 20, 20, 20);
+    fill(0);
+    if(monsterLife >= 200)  monsterLife = 200;
+    rect(450, 20, monsterLife, 20, 20, 20, 20, 20);
+    fill(255);
+    textFont(font);
+    textSize(20);
+    text("Monster Life", 660, 40);
+    
+    
+  }
   void displayEndLevel(){
     smooth();
     imageMode(CENTER);
@@ -234,7 +265,7 @@ class GameLevels {
   void baseForAllLevels(){
     smooth();
     imageMode(CENTER);
-    image(levelOnebackground, width/2, height/2);
+    image(levelsbackground, width/2, height/2);
     invader.display();
     imageMode(CORNER);
     noFill();
