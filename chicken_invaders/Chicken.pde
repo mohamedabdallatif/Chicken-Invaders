@@ -21,11 +21,11 @@ class Chicken {
  
  void display() {
     if (!isHit) {
-     if(flag - 1 == 1) {
+     if(flag == 2) {
        this.curX += chSpd;
        image(chicken, this.curX, y, 70, 90);
      }
-     else if(flag - 1 == 2) {
+     else if(flag == 3) {
        this.curY += chSpd;
        image(chicken, x, this.curY, 70, 90);
      }

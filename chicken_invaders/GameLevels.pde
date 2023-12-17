@@ -134,16 +134,26 @@ class GameLevels {
     imageMode(CENTER);
     image(monsterBackground, width/2, height/2);
       
-    // change the speed of monster...    
+    // change the speed and direction of monster...    
     if(monster.monsterSpeedTime - millis() <= 0){
-       monster.monsterSpeedTime = millis() + 4000;
-       monster.monsterSpeed = (int)random(0, 10);
+       monster.monsterSpeedTime = millis() + 2000;
+       monster.InvaderX = mouseX;
+       monster.InvaderY = mouseY;
+       if (monster.x > width - 130)  monster.x = width - 130;
+       if (monster.x < 130)  monster.x = 130;
+       if (monster.y > height - 160)  monster.y = height - 160;
+       if (monster.y < 160)  monster.y = 160;
+       monster.monsterSpeedX = (int)(abs(monster.InvaderX - monster.x) / 50);
+       monster.monsterSpeedY = (int)(abs(monster.InvaderY - monster.y) / 50);
+       if(monster.InvaderX < monster.x)  monster.monsterSpeedX *= -1;
+       if(monster.InvaderY < monster.y)  monster.monsterSpeedY *= -1;
+       
+       
     }
-    else{
-        monster.display();
+    monster.display();
       
-      
-    }
+     
+    
     
     invader.display();
     noFill();
