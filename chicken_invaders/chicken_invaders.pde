@@ -10,6 +10,7 @@ int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
+PImage smoke, grilledChicken, thigh, leg, wEgg, rEgg;
 
 void setup() {
   size(1200, 900);
@@ -24,6 +25,12 @@ void setup() {
   titleFont = loadFont("ImprintMT-Shadow-70.vlw");
   titleFontX = loadFont("NiagaraEngraved-Reg-60.vlw");
   nextLevelButton = loadFont("AgencyFB-Reg-48.vlw");
+  smoke = loadImage("smoke.png");
+  grilledChicken = loadImage("GrilledChicken.png");
+  wEgg = loadImage("whiteEgg.png");
+  rEgg = loadImage("redEgg.png");
+  thigh = loadImage("Thigh.png");
+  leg = loadImage("Leg.png");
   levelName = loadFont("AgencyFB-Reg-48.vlw");
   // Setup Battle Objects & Field
   gameBegining = new GameBegining();
@@ -64,6 +71,7 @@ void draw() {
       break;
     case 5:
       gameLevels.displayEndLevel();
+      break;
     case 6:
       gameLevels.monsterLevel();
       break;

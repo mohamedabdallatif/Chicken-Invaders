@@ -36,4 +36,9 @@ class Bullet {
  boolean hitChicken(float targetX, float targetY) {
    return dist(x, y, targetX, targetY) < 50;
  }
+ 
+ boolean hitMonster(float targetX, float targetY) {
+   return dist(x, y, targetX, targetY) < 130;
+ }
+ 
 }

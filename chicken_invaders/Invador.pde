@@ -27,10 +27,11 @@ class PInvader {
       y = mouseY;
     }
     else{
-       if(millis() - prev < 1000){
+       if(millis() - prev < 2000){
           killedInv.play();
           if (flag == 2) image(killedInvader, x, height - 100, 150, 150);
           else if (flag == 3) image(killedInvader, x, y, 150, 150);
+          else if (flag == 6) image(killedInvader, x, y, 200, 200);
        }
        else flag = 5;
     }
@@ -38,5 +39,8 @@ class PInvader {
   
   boolean touchChicken(float targetX, float targetY) {
    return dist(mouseX, mouseY, targetX, targetY) < 80;
- }
+  }
+  boolean touchTheMonster(float targetX, float targetY) {
+   return dist(mouseX, mouseY, targetX, targetY) < 200;
+  }
 }

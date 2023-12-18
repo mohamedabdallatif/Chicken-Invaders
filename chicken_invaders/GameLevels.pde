@@ -1,5 +1,5 @@
 class GameLevels {
-  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0, monsterLife = 0;
+  int currentMoment = 0, previousMoment = 0, eggTime = 0, randomEgg = 0;
   int allDead = 0, rocketLoading = 0, winLevel = 0;
   float starAngle = 0;
   float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
@@ -139,8 +139,8 @@ class GameLevels {
        previousMoment = millis();
     }
     
-    monster.displayMonsterEgg();
-
+    monster.displayMonsterEggs();
+    if(monster.monsterDead)  winLevel = 3;
     for (int i = 1; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.display();
@@ -148,14 +148,23 @@ class GameLevels {
         bullets.remove(i);
         continue;
       }
+      if(b.hitMonster(monster.x, monster.y)){
+          monster.monsterLife += 20;
+          monster.nextImage = millis();  // if bullet shooted monster, display another image for 500 ms
+          bullets.remove(i);
+          continue;
+      }
     }
     invader.display();
     noFill();
     rect(450, 20, 200, 20, 20, 20, 20, 20);
-    fill(0);
-    if(monsterLife >= 200)  monsterLife = 200;
-    rect(450, 20, monsterLife, 20, 20, 20, 20, 20);
     fill(255);
+    if(monster.monsterLife > 200){
+       monster.monsterLife = 200;
+       monster.monsterDead = true;
+       
+    }
+    rect(450, 20, monster.monsterLife, 20, 20, 20, 20, 20);
     textFont(font);
     textSize(20);
     text("Monster Life", 660, 40);

@@ -3,8 +3,6 @@ class Chicken {
  boolean isHit;
  float x, y, curX, curY, chSpd = 2, smokeTime = 0;
  PImage chicken = loadImage("chicken.png");
- PImage smoke = loadImage("smoke.png");
- 
  public Chicken(float xpos, float ypos) {
    this.x = xpos;
    this.y = ypos;

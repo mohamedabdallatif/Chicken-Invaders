@@ -1,9 +1,7 @@
 class Egg {
    float x, y;
    int eggType;
-   int breakTime, egSpd = 4, eggArrived = 0;
-   PImage wEgg = loadImage("whiteEgg.png");
-   PImage rEgg = loadImage("redEgg.png");
+   int breakTime, egSpd = 4;
    PImage omlet = loadImage("Omlet.png");
    PImage usedEgg;
    
@@ -20,14 +18,12 @@ class Egg {
         image(usedEgg, x, y, 25, 40);
         breakTime = millis();
         y += egSpd; 
-        //if(x >= mouseX - 60 && x <= mouseX + 60 && y >= 700) {
-        //  InvaderHit = true;
-        //  y = 1000;
-        //}
-        eggArrived = 0; // used for monster..
+        if(x >= mouseX - 60 && x <= mouseX + 60 && y >= 700) {
+          InvaderHit = true;
+          y = 1000;
+        }
      } else if (millis() - breakTime <= 2000){
          image(omlet, x, y, 75, 30);
-         eggArrived = 1;      
      }
          
   }
