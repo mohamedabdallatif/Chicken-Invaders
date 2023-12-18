@@ -62,10 +62,11 @@ class GameLevels {
     if(killed == chSize) {
        winLevel = 1;
        KillAllChickens();
-
-  } 
-    if(killed == chSize && nowT != 0 && millis() - nowT > 2000)   flag = 4; 
-    
+    } 
+    if(killed == chSize && nowT && millis() - nowT > 2000) {
+      nowT = 0;
+      flag = 4; 
+    }
   }
   
   void displayLevelTwo() {
@@ -122,10 +123,11 @@ class GameLevels {
     if(killed == chSize) {
        winLevel = 2;
        KillAllChickens();
-      
     } 
-    if(killed == chSize && nowT != 0 && millis() - nowT > 2000)   flag = 4;
-     
+    if(killed == chSize && nowT && millis() - nowT > 2000) {
+      nowT = 0;
+      flag = 4;
+    }
   }
   
   
@@ -171,6 +173,7 @@ class GameLevels {
     
     
   }
+  
   void displayEndLevel(){
     smooth();
     imageMode(CENTER);
@@ -230,10 +233,10 @@ class GameLevels {
              flag = 3;
              break;
            case 2:
-             exit();  // untill make monster level
-             //flag = 5;
+             flag = 6;
              break;
            case 3:
+             exit();
              break;
         }
       }
@@ -317,6 +320,7 @@ class GameLevels {
         chickens.clear();
         bullets.clear();
   }
+  
   void drawStar(int posx, int posy) {
     pushMatrix();
     translate(posx, posy);

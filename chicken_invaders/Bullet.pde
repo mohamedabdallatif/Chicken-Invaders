@@ -25,7 +25,7 @@ class Bullet {
         killed = chSize;
      }
    }
-   if(killed == chSize)   nowT = millis();
+   if(killed == chSize && !nowT)   nowT = millis();
 
  }
 
