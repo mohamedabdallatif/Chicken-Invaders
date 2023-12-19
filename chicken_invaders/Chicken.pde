@@ -1,5 +1,7 @@
 class Chicken {
- Egg egg = new Egg();
+ Egg egg;
+ AdditionalBullets addBullets;
+ GrilledChicken grilled;
  boolean isHit;
  float x, y, curX, curY, chSpd = 2, smokeTime = 0;
  PImage chicken = loadImage("chicken.png");
@@ -9,12 +11,21 @@ class Chicken {
    this.curX = xpos;
    this.curY = ypos;
    this.isHit = false;
-   this.egg.create(x + 35, y + 60);
+   egg = new Egg(x + 35, y + 60);
+   addBullets = new AdditionalBullets(x + 35, y + 60);
+   grilled = new GrilledChicken(x + 35, y + 60);
  }
  
  void dropEgg() {
     if(!isHit) 
       egg.display();
+ }
+ 
+ void dropAdditionalBullets() {
+    if(!isHit && addBullets.y >= 0){
+       addBullets.display(); 
+    }
+      
  }
  
  void display() {
@@ -29,7 +40,14 @@ class Chicken {
      }
      smokeTime = millis();
    }
-   else if(millis() - smokeTime < 1000)   image(smoke, this.curX, y, 90, 90);
+   else if(millis() - smokeTime < 3000){
+      image(smoke, this.curX, y, 90, 90);
+      if(grilled.y > 0){
+         grilled.update();
+         grilled.display(); 
+      }
+   
+   }
  }
  
  //void displayMoveX() {

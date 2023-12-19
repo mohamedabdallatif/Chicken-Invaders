@@ -1,6 +1,7 @@
 class Monster{
-   MonsterEgg[] eggs = new MonsterEgg[8];
-   Chickens[] killedChickens = new Chickens[20];
+   MonsterEgg[] eggs = new MonsterEgg[10];
+   AdditionalBullets addBullets;
+   Chickens[] killedChickens = new Chickens[25];
    PImage monster0 = loadImage("Monster0.png");
    PImage monster1 = loadImage("Monster1.png"); 
    float monsterSpeedX = 0, monsterSpeedY = 0;   
@@ -10,7 +11,6 @@ class Monster{
    
    
    void display(){
-     
      // change the speed and direction of ..    
     if(monsterSpeedTime - millis() <= 0){
        monsterSpeedTime = millis() + 2000;
@@ -33,15 +33,18 @@ class Monster{
        
     if(!monsterDead){
       if(invader.touchTheMonster((float)x, (float)y))   InvaderHit = true;
-      if(millis() - nextImage > 200)  image(monster0, x, y, 240, 300); 
+      if(millis() - nextImage > 200){
+        image(monster0, x, y, 240, 300);
+      }
+      
       else image(monster1, x, y, 240, 300);  // if bullet shooted monster, display another image for 500 ms
-      if(monsterLife == 200){
+      if(monsterLife == 1000){
         lastPosX = chickensX = x;
         lastPosY = chickensY = y;
         for (int i = 0; i < killedChickens.length; i++) {
             killedChickens[i] = new Chickens(chickensX, chickensY);
         }
-        monsterLife += 5;
+        monsterLife += 100;    // take out from condition....
         winTime = millis();
       }
       
@@ -49,11 +52,14 @@ class Monster{
     else{
       // drop Chickens....
      if(millis() - winTime < 4000){
+       monsterKilledSound.play();
        for (Chickens i : killedChickens) {
-         i.update();
-         i.display();
+         if(i.y > 0){
+           i.update();
+           i.display();
+         }
        }
-       image(smoke, lastPosX, lastPosY, 500, 500); 
+       image(smoke, lastPosX, lastPosY, 300, 300); 
      }
      else flag = 4;
   
@@ -76,21 +82,21 @@ class Monster{
       for (int i = 0; i < eggs.length; i++) {
         eggs[i] = new MonsterEgg((float)x, (float)y);
       }
-      
+     
      breakTime = millis();
      println("done");
      firstEggs = 1;
     }
     
     else if(firstEggs == 1){
-      for (MonsterEgg i : eggs) {
-         i.update();
-         i.display();
+      for (MonsterEgg far5aia : eggs) {
+         far5aia.update();
+         far5aia.display();
        }
       // when i win, eggs killed me: solve it by this code
       if(monsterDead){
-         for (MonsterEgg i : eggs) {
-           i.y = 1000;
+         for (MonsterEgg eggaya : eggs) {
+           eggaya.y = 1000;
          }
       }
     } 
@@ -137,7 +143,7 @@ class Chickens{
       this.x = x;
       this.y = y;
       speedX = random(-5, 6);
-      speedY = random(1, 8);
+      speedY = random(-5, 8);
       type = (int)random(1, 4);
     }
 
@@ -152,8 +158,8 @@ class Chickens{
     else  image(grilledChicken, x, y, 150, 100);
     // increase score....
     if(x >= mouseX - 60 && x <= mouseX + 60 && y >= mouseY - 80 && y <= mouseY + 80) {
-      score += random(5, 20);
-      y = 1000;
+      score += random(5, 12);
+      y = -800; // don't display
     }
   }
 

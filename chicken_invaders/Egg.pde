@@ -5,7 +5,7 @@ class Egg {
    PImage omlet = loadImage("Omlet.png");
    PImage usedEgg;
    
-   void create(float posX, float posY){
+   Egg(float posX, float posY){
      x = posX;
      y = posY;
      eggType = int(random(1, 3));

@@ -1,16 +1,17 @@
 import ddf.minim.*;
 Minim minim;
 PInvader invader;
-AudioPlayer clickSound, screemChicken, killedInv, explosion;
+AudioPlayer clickSound, screemChicken, killedInv, explosion, monsterKilledSound;
 GameBegining gameBegining;
 GameLevels gameLevels;
+EndAll endAll = new EndAll();
 Monster monster;
 boolean InvaderHit;
-int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0;
+int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0, bulletsNumber = 1, currentLevel = 1, lastFlag = 2;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
-PImage smoke, grilledChicken, thigh, leg, wEgg, rEgg;
+PImage smoke, grilledChicken, thigh, leg, wEgg, rEgg, goodBye;
 
 void setup() {
   size(1200, 900);
@@ -18,8 +19,9 @@ void setup() {
   // loading sounds and fonts
   clickSound = minim.loadFile("click.wav");
   screemChicken = minim.loadFile("chicken_screeming.mp3");
+  monsterKilledSound = minim.loadFile("MonsterKilled.mp3");
   explosion = minim.loadFile("explosion.mp3");
-  invader = new PInvader("Invader.png");
+  invader = new PInvader();
   font = loadFont("TimesNewRomanPS-BoldItalicMT-48.vlw");
   font60 = loadFont("TimesNewRomanPS-BoldItalicMT-60.vlw");
   titleFont = loadFont("ImprintMT-Shadow-70.vlw");
@@ -29,6 +31,7 @@ void setup() {
   grilledChicken = loadImage("GrilledChicken.png");
   wEgg = loadImage("whiteEgg.png");
   rEgg = loadImage("redEgg.png");
+  goodBye = loadImage("GoodBye.jpg");
   thigh = loadImage("Thigh.png");
   leg = loadImage("Leg.png");
   levelName = loadFont("AgencyFB-Reg-48.vlw");
@@ -74,6 +77,9 @@ void draw() {
       break;
     case 6:
       gameLevels.monsterLevel();
+      break;
+    case 7:
+      endAll.display();
       break;
   }
 }

@@ -41,7 +41,7 @@ class GameBegining{
       textSize(70);
       text("PLAY",315, 585);
       if(mousePressed){
-        flag = 6;
+        flag = 2;
         clickSound.play();
         player.pause();
         killedInv = minim.loadFile("KilledInvader.wav");

@@ -1,25 +1,28 @@
 class PInvader {
   int prev = 0, x = 0, y = 0;
-  PImage invader, killedInvader, bossInvader;
-  public PInvader(String invPath) {
-    this.invader = loadImage(invPath);
+  PImage invader1, invader2, killedInvader, bossInvader;
+  public PInvader() {
+    this.invader1 = loadImage("InvaderLevelOne.png");
+    this.bossInvader = loadImage("bossInvader.png");
     this.killedInvader = loadImage("KilledInvader.png");
     this.bossInvader = loadImage("bossInvader.png");
-  }
+    this.invader2 = loadImage("InvaderLevelTwo.png");
+      
+}
 
   void display() {
     if(!InvaderHit){
       if (mouseX > 60 && mouseX < width - 60) {
-        if (flag == 2) image(invader, mouseX, height - 100, 120, 200);
-        else if (flag == 3) image(invader, mouseX, mouseY, 120, 200);
+        if (flag == 2) image(invader1, mouseX, height - 100, 120, 200);
+        else if (flag == 3) image(invader2, mouseX, mouseY, 140, 175);
         else if (flag == 6) image(bossInvader, mouseX, mouseY, 140, 180);
       } else if (mouseX <= 60) {
-        if (flag == 2) image(invader, 60, height - 100, 120, 200);
-        else if (flag == 3) image(invader, 60, mouseY, 120, 200);
+        if (flag == 2) image(invader1, 60, height - 100, 120, 200);
+        else if (flag == 3) image(invader2, 60, mouseY, 140, 175);
         else if (flag == 6) image(bossInvader, 60, mouseY, 140, 180);
       } else {
-        if (flag == 2) image(invader, width - 60, height -100, 120, 200);
-        else if (flag == 3) image(invader, width - 60, mouseY, 120, 200);
+        if (flag == 2) image(invader1, width - 60, height -100, 120, 200);
+        else if (flag == 3) image(invader2, width - 60, mouseY, 140, 175);
         else if (flag == 6) image(bossInvader, width - 60, mouseY, 140, 180);
       } 
       prev = millis();
