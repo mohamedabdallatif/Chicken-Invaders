@@ -36,7 +36,10 @@ class PInvader {
           else if (flag == 3) image(killedInvader, x, y, 150, 150);
           else if (flag == 6) image(killedInvader, x, y, 200, 200);
        }
-       else flag = 5;
+       else{
+        LoseSound = minim.loadFile("Lose.wav");
+        flag = 5; 
+       }
     }
   }
   

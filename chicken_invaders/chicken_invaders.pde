@@ -1,7 +1,7 @@
 import ddf.minim.*;
 Minim minim;
 PInvader invader;
-AudioPlayer clickSound, screemChicken, killedInv, explosion, monsterKilledSound;
+AudioPlayer clickSound, screemChicken, killedInv, explosion, monsterKilledSound, LoseSound;
 GameBegining gameBegining;
 GameLevels gameLevels;
 EndAll endAll = new EndAll();
@@ -73,6 +73,7 @@ void draw() {
       gameLevels.displayWinnerLevel();
       break;
     case 5:
+      LoseSound.play();
       gameLevels.displayEndLevel();
       break;
     case 6:

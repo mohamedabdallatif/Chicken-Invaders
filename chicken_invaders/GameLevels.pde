@@ -12,7 +12,7 @@ class GameLevels {
   
 
  void displayLevelOne() {
-     baseForAllLevels();      
+    baseForAllLevels();      
     currentLevel = 1;  // used for additional bullets...
     // draw chickens and move them 
     for (int i = 0; i <= chickens.size()-1; i++) {
@@ -26,7 +26,7 @@ class GameLevels {
        KillAllChickens();
 
   } 
-    if(killed == chSize && nowT != 0 && millis() - nowT > 1000)   flag = 4; 
+    if(killed == chSize)   flag = 4; 
     
   }
   
@@ -50,7 +50,7 @@ class GameLevels {
        KillAllChickens();
       
     } 
-    if(killed == chSize && nowT != 0 && millis() - nowT > 1000)   flag = 4;
+    if(killed == chSize)   flag = 4;
      
   }
   
@@ -125,6 +125,7 @@ class GameLevels {
     if (mouseX > 500 && mouseX < 620 && mouseY > 580 && mouseY < 660) {
       fill(200, 50, 0); 
       if (mousePressed) {
+        clickSound = minim.loadFile("click.wav");
         clickSound.play();
         exit();
       }
@@ -183,6 +184,7 @@ class GameLevels {
       fill(255); 
       text("EXIT", 755, 657);
       if (mousePressed) {
+        clickSound = minim.loadFile("click.wav");
         clickSound.play();
         exit();
       }
@@ -299,7 +301,8 @@ class GameLevels {
         }
         
       } else if (mouseButton == RIGHT && score >= 135) {
-        bullets.add(new Bullet(mouseX, height - 200, 1));   
+        bullets.add(new Bullet(mouseX, height - 200, 1));
+        score += 50;
       }
        previousMoment = millis();
     }
@@ -349,15 +352,16 @@ class GameLevels {
 
   void baseForEndAndWin(){
         killedInv = minim.loadFile("KilledInvader.wav");
-        clickSound = minim.loadFile("click.wav");
         previousMoment = millis();
         killed = 0;
         nowT = 0;
         bulletsNumber = 1;
+        monster.x = monster.y = 100;
         explosion = minim.loadFile("explosion.mp3");
+        clickSound = minim.loadFile("click.wav");
         clickSound.play();
         InvaderHit = false;
-        score = rocketLoading = killed = 0;
+        score = rocketLoading = killed = monster.monsterLife = 0;
         chickens.clear();
         bullets.clear();
   }

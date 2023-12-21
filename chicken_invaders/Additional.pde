@@ -112,6 +112,7 @@ class EndAll{
     if (mouseX > 200 && mouseX < 320 && mouseY > 800 && mouseY < 880) {
     fill(200, 50, 0); 
     if (mousePressed) {
+      clickSound = minim.loadFile("click.wav");
       clickSound.play();
       exit();
     }

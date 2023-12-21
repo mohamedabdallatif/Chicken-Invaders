@@ -2,7 +2,7 @@ class GameBegining{
   String title = "CHICKEN INVADERS";
   String objective = "The game puts you at the forefront of a battle against invading intergalactic chickens, bent on revenge against the human race for our oppression of Earth chickens.";
   String instructions = "you clear of chickens and other enemies, avoid eggs and other projectiles, collect power-ups to make your weapon stronger, get food items to obtain Rockets";
-  String levels = "four levels; at the end of four levels, you’ll fight a boss.";
+  String levels = "Three levels including Boss, Win Two levels, Fight Boss.";
   String rewards = "Blast enough chickens and you’ll be rewarded with drumsticks. Collecting drumsticks can earn you a powerful missile which will let you get past particularly challenging sections";
   PImage guide_background = loadImage("Space.jpg");
   boolean isMute = false;
@@ -18,14 +18,20 @@ class GameBegining{
    image(start_page_background, width / 2, height / 2);
    stroke(255); 
    strokeWeight(4);
+   imageMode(CORNER);
    textFont(titleFontX);
-   if(isMute){
+    if(isMute){
      player.pause();
-     image(muteIcon,50,50,60,60);
+     image(muteIcon,10,10,60,60);
     }
     else{
      player.play();
-     image(soundIcon,50,50,60,60);
+     image(soundIcon,10,10,60,60);
+    }
+    if(mouseX>=10 && mouseY>=10 && mouseX<=70 && mouseY<=70){
+      if(mousePressed){
+         isMute= !isMute;
+      }
     }
     if (mouseX > 250 && mouseX < 440 && mouseY > 530 && mouseY < 590) {
       fill(255, 165, 0);
@@ -41,10 +47,11 @@ class GameBegining{
       textSize(70);
       text("PLAY",315, 585);
       if(mousePressed){
-        flag = 2;
+        clickSound = minim.loadFile("click.wav");
         clickSound.play();
         player.pause();
         killedInv = minim.loadFile("KilledInvader.wav");
+        flag = 2;
       }
     } 
     else {
@@ -76,9 +83,10 @@ class GameBegining{
       textSize(70);
       text("GUIDE",605, 585);
       if(mousePressed){
-        flag = 1;
+        clickSound = minim.loadFile("click.wav");
         clickSound.play();
-      }
+        flag = 1;  
+    }
     } else {
       fill(255, 215, 0);
       beginShape();
@@ -92,12 +100,6 @@ class GameBegining{
       fill(0);
       textSize(60);
       text("GUIDE",610, 580);
-    }
-    
-    if(mouseX>=50 && mouseY>=50 && mouseX<=110 && mouseY<=110){
-      if(mousePressed){
-         isMute= !isMute;
-      }
     }
    } 
   
@@ -144,6 +146,7 @@ class GameBegining{
         text("Return home", 115, 848);
         if(mousePressed){
           flag = 0;
+          clickSound = minim.loadFile("click.wav");
           clickSound.play();
         }
      }
