@@ -312,7 +312,7 @@ class GameLevels {
     }
     
     // choose random a live chicken and drop it's egg
-    if(millis() - eggTime > 6000) {
+    if(millis() - eggTime > 6000 && eggTime!=-1) {
         do {
           randomEgg = (int) random(0, chickens.size());
         } while(chickens.get(randomEgg).isHit);
