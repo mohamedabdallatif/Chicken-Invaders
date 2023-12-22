@@ -172,7 +172,8 @@ class GameLevels {
              break;
         }
       }
-    } else   fill(255, 120, 120);
+    } 
+    else   fill(255, 120, 120);
     rect(515, 660, 175, 50, 50, 50, 50, 50);
     fill(255);
     textFont(nextLevelButton);
@@ -360,6 +361,8 @@ class GameLevels {
         nowT = 0;
         startLevel2Time = 0;
         bulletsNumber = 1;
+        invader.y2 = 800;
+        invader.x = 0;  
         monster.x = monster.y = 100;
         explosion = minim.loadFile("explosion.mp3");
         clickSound = minim.loadFile("click.wav");

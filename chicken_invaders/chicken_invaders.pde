@@ -49,8 +49,8 @@ void KillAllChickens(){
 }
 
 void buildChickens(int factor) {
-  for (int i = 0; i < 100; i += 100)
-    for (int j = 0; j < 100 + factor; j += 100)
+  for (int i = 0; i < 1100; i += 100)
+    for (int j = 0; j < 400 + factor; j += 100)
       chickens.add(new Chicken(i + 20, j + 100));
   chSize = chickens.size();
 }

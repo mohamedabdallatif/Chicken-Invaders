@@ -12,6 +12,8 @@ class PInvader {
 
   void display() {
     if(!InvaderHit){
+      if(startLevel2Time == 0 && winLevel > 0)   startLevel2Time = millis();
+      else y2 = 800;
       if (mouseX > 60 && mouseX < width - 60)   x1 = mouseX;  // x for level 1
       if (mouseX > 70 && mouseX < width - 70)   x = mouseX;  // x for level 2, 3
       if(millis() - startLevel2Time > 1000){
@@ -21,7 +23,6 @@ class PInvader {
       if (flag == 2) image(invader1, x1, y1, 120, 200);
       else if (flag == 3)  image(invader2, x, y2, 140, 180);
       else if (flag == 6)  image(bossInvader, x, bossY, 140, 180);
-      if(startLevel2Time == 0 && winLevel > 0)   startLevel2Time = millis();
       prev = millis();
       lastX = x;
       lastY = y2;
@@ -42,7 +43,7 @@ class PInvader {
   }
   
   boolean touchChicken(float targetX, float targetY) {
-   return dist(mouseX, mouseY, targetX, targetY) < 80;
+   return dist(x, y2, targetX, targetY) < 80;
   }
   boolean touchTheMonster(float targetX, float targetY) {
    return dist(mouseX, mouseY, targetX, targetY) < 200;
