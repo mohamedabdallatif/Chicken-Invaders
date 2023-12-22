@@ -84,7 +84,7 @@ class Monster{
       }
      
      breakTime = millis();
-     println("done");
+     //println("done");
      firstEggs = 1;
     }
     

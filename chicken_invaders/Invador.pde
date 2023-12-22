@@ -1,5 +1,5 @@
 class PInvader {
-  int prev = 0, x = 0, y = 0;
+  int prev = 0, x1 = 0, x = 0, bossY = 800, y1 = height - 100, y2 = 800, lastX = 0, lastY = 0;
   PImage invader1, invader2, killedInvader, bossInvader;
   public PInvader() {
     this.invader1 = loadImage("InvaderLevelOne.png");
@@ -12,29 +12,27 @@ class PInvader {
 
   void display() {
     if(!InvaderHit){
-      if (mouseX > 60 && mouseX < width - 60) {
-        if (flag == 2) image(invader1, mouseX, height - 100, 120, 200);
-        else if (flag == 3) image(invader2, mouseX, mouseY, 140, 175);
-        else if (flag == 6) image(bossInvader, mouseX, mouseY, 140, 180);
-      } else if (mouseX <= 60) {
-        if (flag == 2) image(invader1, 60, height - 100, 120, 200);
-        else if (flag == 3) image(invader2, 60, mouseY, 140, 175);
-        else if (flag == 6) image(bossInvader, 60, mouseY, 140, 180);
-      } else {
-        if (flag == 2) image(invader1, width - 60, height -100, 120, 200);
-        else if (flag == 3) image(invader2, width - 60, mouseY, 140, 175);
-        else if (flag == 6) image(bossInvader, width - 60, mouseY, 140, 180);
-      } 
+      if (mouseX > 60 && mouseX < width - 60)   x1 = mouseX;  // x for level 1
+      if (mouseX > 70 && mouseX < width - 70)   x = mouseX;  // x for level 2, 3
+      if(millis() - startLevel2Time > 1000){
+         if (mouseY > 90 && mouseY < height - 90)  y2 = mouseY;  // y for level 2
+      }
+      if (mouseY > 90 && mouseY < height - 90)  bossY = mouseY;  // y for level 2
+      if (flag == 2) image(invader1, x1, y1, 120, 200);
+      else if (flag == 3)  image(invader2, x, y2, 140, 180);
+      else if (flag == 6)  image(bossInvader, x, bossY, 140, 180);
+      if(startLevel2Time == 0 && winLevel > 0)   startLevel2Time = millis();
       prev = millis();
-      x = mouseX;
-      y = mouseY;
+      lastX = x;
+      lastY = y2;
+      
     }
     else{
        if(millis() - prev < 2000){
           killedInv.play();
-          if (flag == 2) image(killedInvader, x, height - 100, 150, 150);
-          else if (flag == 3) image(killedInvader, x, y, 150, 150);
-          else if (flag == 6) image(killedInvader, x, y, 200, 200);
+          if (flag == 2) image(killedInvader, lastX, y1, 150, 150);
+          else if (flag == 3) image(killedInvader, lastX, lastY, 150, 150);
+          else if (flag == 6) image(killedInvader, lastX, lastY, 200, 200);
        }
        else{
         LoseSound = minim.loadFile("Lose.wav");

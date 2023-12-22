@@ -1,6 +1,6 @@
 class GameLevels {
-  int currentMoment = 0, previousMoment = 0, eggTime = 0, bulletTime = 0, randomEgg = 0, randomBullet = 0;
-  int allDead = 0, rocketLoading = 0, winLevel = 0;
+  int currentMoment = 0, eggTime = 0, bulletTime = 0, randomEgg = 0, randomBullet = 0;
+  int allDead = 0, rocketLoading = 0;
   float starAngle = 0;
   float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
   float[] yPoints = {-50, -20, -20, 10, 40, 20, 40, 10, -20, -20};
@@ -60,11 +60,13 @@ class GameLevels {
     imageMode(CENTER);
     image(monsterBackground, width/2, height/2);
     monster.display();
-    if(mousePressed && millis() - previousMoment > 200){
-       bullets.add(new Bullet(mouseX, mouseY, 0));
-       bullets.add(new Bullet(mouseX - 20, mouseY, 0));
-       bullets.add(new Bullet(mouseX + 20, mouseY, 0));
-       previousMoment = millis();
+    if(!InvaderHit){
+      if(mousePressed && millis() - previousMoment > 200){
+         bullets.add(new Bullet(mouseX, mouseY, 0));
+         bullets.add(new Bullet(mouseX - 20, mouseY, 0));
+         bullets.add(new Bullet(mouseX + 20, mouseY, 0));
+         previousMoment = millis();
+      }
     }
     currentLevel = 3;  
     monster.displayMonsterEggs();
@@ -234,8 +236,9 @@ class GameLevels {
     textFont(titleFont);
     textSize(30);
     text(str(score), 230, 20, 1100, 900);
-    // when invader cliked to launch new bullet
-    if(mousePressed && millis() - previousMoment > 200){
+    // when invader is a live, mouse clicked, launch new bullet
+    if(!InvaderHit){
+      if(mousePressed && millis() - previousMoment > 200){
       if (mouseButton == LEFT) {
          //println(bulletsNumber);
         if(flag == 2){    // bullets for level 1
@@ -295,7 +298,6 @@ class GameLevels {
               bullets.add(new Bullet(mouseX - 20, mouseY, 0));
               bullets.add(new Bullet(mouseX + 20, mouseY, 0));
               break;
-            
           }
         
         }
@@ -305,6 +307,7 @@ class GameLevels {
         score += 50;
       }
        previousMoment = millis();
+    }
     }
     
     // choose random a live chicken and drop it's egg
@@ -355,6 +358,7 @@ class GameLevels {
         previousMoment = millis();
         killed = 0;
         nowT = 0;
+        startLevel2Time = 0;
         bulletsNumber = 1;
         monster.x = monster.y = 100;
         explosion = minim.loadFile("explosion.mp3");
