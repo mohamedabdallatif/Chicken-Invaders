@@ -54,7 +54,9 @@ void buildChickens(int factor) {
       chickens.add(new Chicken(i + 20, j + 100));
   chSize = chickens.size();
 }
-
+void initEgg(){
+gameLevels.eggTime=0;
+}
 void draw() {
   switch(flag) {
     case 0:

@@ -1,5 +1,5 @@
 class GameLevels {
-  int currentMoment = 0, eggTime = 0, bulletTime = 0, randomEgg = 0, randomBullet = 0;
+  int currentMoment = 0, eggTime = -1, bulletTime = 0, randomEgg = 0, randomBullet = 0;
   int allDead = 0, rocketLoading = 0;
   float starAngle = 0;
   float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
