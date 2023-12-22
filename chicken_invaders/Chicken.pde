@@ -40,8 +40,8 @@ class Chicken {
      }
      smokeTime = millis();
    }
-   else if(millis() - smokeTime < 3000){
-      image(smoke, this.curX, y, 90, 90);
+   else if(millis() - smokeTime < 2000){
+      image(smoke, this.curX, this.curY, 90, 90);
       if(grilled.y > 0){
          grilled.update();
          grilled.display(); 
@@ -49,19 +49,4 @@ class Chicken {
    
    }
  }
- 
- //void displayMoveX() {
- //  if (!isHit) {
- //    this.curX += chSpd;
- //    image(chicken, this.curX, y, 70, 90);
- //    smokeTime = millis();
- //  }
- //  else if(millis() - smokeTime < 1000)   image(smoke, this.curX, y, 90, 90); 
- //}
- // void displayMoveY() {
- //  if (!isHit) {
- //    this.curY += chSpd;
- //    image(chicken, x, this.curY, 70, 90);
- //  }
- //}
 }

@@ -52,7 +52,6 @@ class GameBegining{
         player.pause();
         killedInv = minim.loadFile("KilledInvader.wav");
         previousMoment = millis();
-        initEgg();
         flag = 2;
       }
     } 

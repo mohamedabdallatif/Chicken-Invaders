@@ -7,7 +7,7 @@ class Bullet {
  public Bullet(float xpos, float ypos, int type) {
    this.x = xpos;
    this.y = ypos;
-   this.type = type;
+   this.type = type;      // Bullet or Rocket....
  }
 
  void display() {
@@ -15,7 +15,7 @@ class Bullet {
       y -= buSpd;
       image(bullet, x, y, 8, 70);
    }
-   if(type == 1 && score > 50 && nowT == 0){
+   if(type == 1 && score >= 135 && nowT == 0){
      xx -= buSpd;
      yy -= buSpd;
      image(rocketX, xx, yy, 200, 200);

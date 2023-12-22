@@ -7,7 +7,7 @@ GameLevels gameLevels;
 EndAll endAll = new EndAll();
 Monster monster;
 boolean InvaderHit;
-int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0, bulletsNumber = 1, winLevel = 0, startLevel2Time = 0, currentLevel = 1, lastFlag = 2, previousMoment = 0;
+int flag = 0, score = 0, killed = 0, chSize = 0, nowT = 0, bulletsNumber = 1, winLevel = 0, currentLevel = 1, lastFlag = 2, previousMoment = 0;
 PFont font, font60, titleFont, titleFontX, nextLevelButton, levelName;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Chicken> chickens = new ArrayList<Chicken>();
@@ -40,7 +40,7 @@ void setup() {
   gameLevels = new GameLevels();
   monster = new Monster();
   InvaderHit = false;
-  buildChickens(0);
+  buildChickens();
 }
 
 void KillAllChickens(){
@@ -48,15 +48,13 @@ void KillAllChickens(){
         chicken.isHit = true;
 }
 
-void buildChickens(int factor) {
+void buildChickens() {
   for (int i = 0; i < 1100; i += 100)
-    for (int j = 0; j < 400 + factor; j += 100)
+    for (int j = 0; j < 400; j += 100)
       chickens.add(new Chicken(i + 20, j + 100));
   chSize = chickens.size();
 }
-void initEgg(){
-gameLevels.eggTime=0;
-}
+
 void draw() {
   switch(flag) {
     case 0:

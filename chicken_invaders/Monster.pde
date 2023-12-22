@@ -5,7 +5,7 @@ class Monster{
    PImage monster0 = loadImage("Monster0.png");
    PImage monster1 = loadImage("Monster1.png"); 
    float monsterSpeedX = 0, monsterSpeedY = 0;   
-   int x = 100, y = 100, monsterSpeedTime = 0, monsterLife = 0, breakTime = 0, firstEggs = 0, winTime = 0;
+   int x = 100, y = 100, monsterSpeedTime = 0, monsterLife = 0, breakTime = -1, firstEggs = 0, winTime = 0;
    int InvaderX, InvaderY, nextImage = 0, lastPosX = 0, lastPosY = 0, chickensX = 0, chickensY = 0;
    boolean monsterDead = false;
    
@@ -16,6 +16,7 @@ class Monster{
        monsterSpeedTime = millis() + 2000;
        InvaderX = mouseX;
        InvaderY = mouseY;
+       // to be in screen... (not be out of screen)
        if (x > width - 130)  x = width - 130;
        if (x < 130)  x = 130;
        if (y > height - 160)  y = height - 160;
@@ -36,7 +37,6 @@ class Monster{
       if(millis() - nextImage > 200){
         image(monster0, x, y, 240, 300);
       }
-      
       else image(monster1, x, y, 240, 300);  // if bullet shooted monster, display another image for 500 ms
       if(monsterLife == 1000){
         lastPosX = chickensX = x;
@@ -82,24 +82,22 @@ class Monster{
       for (int i = 0; i < eggs.length; i++) {
         eggs[i] = new MonsterEgg((float)x, (float)y);
       }
-     
-     breakTime = millis();
-     //println("done");
-     firstEggs = 1;
+      breakTime = millis();
+       //println("done");
+      firstEggs = 1;
     }
-    
     else if(firstEggs == 1){
-      for (MonsterEgg far5aia : eggs) {
-         far5aia.update();
-         far5aia.display();
-       }
+      for (MonsterEgg eggaia : eggs) {
+         eggaia.update();
+         eggaia.display();
+      }
       // when i win, eggs killed me: solve it by this code
       if(monsterDead){
          for (MonsterEgg eggaya : eggs) {
            eggaya.y = 1000;
          }
       }
-    } 
+    }
       
   }
 }

@@ -18,9 +18,17 @@ class Egg {
         image(usedEgg, x, y, 25, 40);
         breakTime = millis();
         y += egSpd; 
-        if(x >= mouseX - 60 && x <= mouseX + 60 && y >= 700) {
-          InvaderHit = true;
-          y = 1000;
+        if(flag == 2){
+          if(x >= mouseX - 60 && x <= mouseX + 60 && y >= 700) {
+            InvaderHit = true;
+            y = 1000;
+          }
+        }
+        else{
+          if(x >= mouseX - 60 && x <= mouseX + 60 && y >= mouseY - 90 && y <= mouseY + 90) {
+            InvaderHit = true;
+            y = 1000;
+          }
         }
      } else if (millis() - breakTime <= 2000){
          image(omlet, x, y, 75, 30);

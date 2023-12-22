@@ -1,5 +1,5 @@
 class GameLevels {
-  int currentMoment = 0, eggTime = -1, bulletTime = 0, randomEgg = 0, randomBullet = 0;
+  int currentMoment = 0, eggTime = 0, additionalTime = 0, randomEgg = -1, randomBullet = -1;
   int allDead = 0, rocketLoading = 0;
   float starAngle = 0;
   float[] xPoints = {0, 15, 45, 20, 30, 0, -30, -20, -45, -15};
@@ -13,44 +13,41 @@ class GameLevels {
 
  void displayLevelOne() {
     baseForAllLevels();      
-    currentLevel = 1;  // used for additional bullets...
+    currentLevel = 1;  // used for additional rewards...
     // draw chickens and move them 
-    for (int i = 0; i <= chickens.size()-1; i++) {
+    for (int i = 0; i < chickens.size(); i++) {
       if (chickens.get(i).curX > chickens.get(i).x + 80 || chickens.get(i).curX < chickens.get(i).x)
           chickens.get(i).chSpd *= -1;
        chickens.get(i).display();
-      }
+    }
     
     if(killed == chSize) {
        winLevel = 1;
        KillAllChickens();
-
-  } 
-    if(killed == chSize)   flag = 4; 
-    
+       flag = 4;
+    }     
   }
   
   void displayLevelTwo() {
      baseForAllLevels();     
      currentLevel = 2; 
     // draw chickens and move them 
-    for (int i = 0; i <= chickens.size()-1; i++) {
-      if (chickens.get(i).curY > chickens.get(i).y + 100 || chickens.get(i).curY < chickens.get(i).y)
+    for (int i = 0; i < chickens.size(); i++) {
+      if (chickens.get(i).curY > chickens.get(i).y + 80 || chickens.get(i).curY < chickens.get(i).y)
             chickens.get(i).chSpd *= -1;
       chickens.get(i).display();
     }
     
     for(Chicken chicken : chickens) {
       if(!chicken.isHit && invader.touchChicken(chicken.x, chicken.curY))
-        InvaderHit = true;
+        InvaderHit = true;        
     }
    
     if(killed == chSize) {
        winLevel = 2;
        KillAllChickens();
-      
+       flag = 4;
     } 
-    if(killed == chSize)   flag = 4;
      
   }
   
@@ -68,7 +65,7 @@ class GameLevels {
          previousMoment = millis();
       }
     }
-    currentLevel = 3;  
+    currentLevel = 3;
     monster.displayMonsterEggs();
     if(monster.monsterDead)  winLevel = 3;
     for (int i = 1; i < bullets.size(); i++) {
@@ -92,7 +89,7 @@ class GameLevels {
     rect(100, 40, 1000, 20, 20, 20, 20, 20);
     fill(255);
     if(monster.monsterLife > 1000){
-       monster.monsterLife = 1100;
+       monster.monsterLife = 1100;    
        monster.monsterDead = true;
        
     }
@@ -108,23 +105,23 @@ class GameLevels {
     imageMode(CENTER);
     image(endLevelBackground, width/2, height/2);
     // play again button
-    if (mouseX > 460 && mouseX < 660 && mouseY > 480 && mouseY < 560) {
+    if (mouseX > 460 && mouseX < 660 && mouseY > 700 && mouseY < 780) {
       fill(255, 165, 0);
       // if user click on this button
       if (mousePressed) {
         baseForEndAndWin();
-        buildChickens(0);
+        buildChickens();
         flag = lastFlag;
       }
     } else  fill(255, 215, 0);
-    rect(460, 480, 215, 80, 50, 50, 50, 50);
+    rect(460, 700, 215, 80, 50, 50, 50, 50);
     fill(0);
     textFont(titleFontX);
     textSize(70);
-    text("PLAY AGAIN", 480, 543);
+    text("PLAY AGAIN", 480, 765);
 
-    // exit button
-    if (mouseX > 500 && mouseX < 620 && mouseY > 580 && mouseY < 660) {
+    // Exit button
+    if (mouseX > 800 && mouseX < 920 && mouseY > 700 && mouseY < 780) {
       fill(200, 50, 0); 
       if (mousePressed) {
         clickSound = minim.loadFile("click.wav");
@@ -132,10 +129,10 @@ class GameLevels {
         exit();
       }
     } else  fill(255, 0, 0);
-    rect(500, 580, 120, 80, 50, 50, 50, 50);
+    rect(800, 700, 120, 80, 50, 50, 50, 50);
     fill(0);
     textSize(70);
-    text("EXIT", 530, 645);
+    text("EXIT", 830, 765);
   }
   
   void displayWinnerLevel(){
@@ -144,13 +141,12 @@ class GameLevels {
     image(winnerBackground, width/2, height/2);
     textFont(levelName);
     textSize(70);
-    text("Level " + str(winLevel),535, 450);
+    text("Level " + str(winLevel),535, 520);
     fill(255);
     textFont(titleFontX);
     textSize(50);
-    text(str(score),600, 615);
-
-    if (mouseX > 515 && mouseX < 690 && mouseY > 660 && mouseY < 710) {
+    text(str(score),600, 672);
+    if (mouseX > 515 && mouseX < 690 && mouseY > 730 && mouseY < 780) {
       fill(225, 80, 80);
       if (mousePressed) {
         for (int j = 0; j < chickens.size(); j++) {
@@ -159,8 +155,8 @@ class GameLevels {
         baseForEndAndWin();
         switch(winLevel) {
            case 1:
-             buildChickens(100);
-             flag = 3;
+             buildChickens();
+             flag = 3;    // go to level 2
              lastFlag = 3;
              break;
            case 2:
@@ -174,11 +170,11 @@ class GameLevels {
       }
     } 
     else   fill(255, 120, 120);
-    rect(515, 660, 175, 50, 50, 50, 50, 50);
+    rect(515, 730, 175, 50, 50, 50, 50, 50);
     fill(255);
     textFont(nextLevelButton);
     textSize(40);
-    text("Next Level", 540, 700);
+    text("Next Level", 540, 770);
     textFont(font60);
     if (mouseX > 750 && mouseX < 820 && mouseY > 615 && mouseY < 685) {
       fill(200, 50, 0); 
@@ -200,15 +196,15 @@ class GameLevels {
        text("EXIT",760, 657);
      }
      fill(230, 240, 40);
-     if(score < 80)   drawStar(590, 500);
+     if(score < 80)   drawStar(590, 580);
      else if(score < 150){
-        drawStar(550, 500);
-        drawStar(630, 500);
+        drawStar(550, 580);
+        drawStar(630, 580);
      }
      else{
-        drawStar(510, 500);
-        drawStar(590, 500);
-        drawStar(670, 500);
+        drawStar(510, 580);
+        drawStar(590, 580);
+        drawStar(670, 580);
      }
   }
   
@@ -222,13 +218,13 @@ class GameLevels {
     rect(20, 20, 200, 20, 20, 20, 20, 20);
     fill(0);
     if(score >= 200)  score = 200;
-    rect(20, 20, score, 20, 20, 20, 20, 20);
+    if(score > 0)  rect(20, 20, score, 20, 20, 20, 20, 20);
     noFill();
     rect(900, 20, 200, 20, 20, 20, 20, 20);
     fill(0);
     if(score >= 135)  rocketLoading = 200;
     else rocketLoading = (int)(score * 1.5);
-    rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
+    if(score > 0)  rect(900, 20, rocketLoading, 20, 20, 20, 20, 20);
     image(rocket, 1120, 15, 30, 30);
     textFont(font);
     textSize(20);
@@ -310,29 +306,7 @@ class GameLevels {
        previousMoment = millis();
     }
     }
-    
-    // choose random a live chicken and drop it's egg
-    if(millis() - eggTime > 6000 && eggTime!=-1) {
-        do {
-          randomEgg = (int) random(0, chickens.size());
-        } while(chickens.get(randomEgg).isHit);
-        eggTime = millis();
-    }  
-    if(randomEgg < chickens.size()){
-      chickens.get(randomEgg).dropEgg();
-    }
-   
-   // choose random a live chicken and drop it's additional
-    if(millis() - bulletTime > 3000) {
-        do {
-          randomBullet = (int) random(0, chickens.size());
-        } while(chickens.get(randomBullet).isHit);
-        bulletTime = millis();
-    }  
-    if(randomBullet < chickens.size()){
-        chickens.get(randomBullet).dropAdditionalBullets();
-    }
-    for (int i = 0; i < bullets.size(); i++) {
+    for (int i = 0; i < bullets.size(); i++) {  
       Bullet b = bullets.get(i);
       b.display();
       if (b.bulletOutScreen()) {
@@ -340,47 +314,65 @@ class GameLevels {
         continue;
       }
       for(int j = 0; j < chickens.size(); j++) {
-        if(!chickens.get(j).isHit && b.hitChicken(chickens.get(j).curX, chickens.get(j).y)) {
+        if(!chickens.get(j).isHit && b.hitChicken(chickens.get(j).curX, chickens.get(j).curY)) {
            bullets.remove(i);
            screemChicken = minim.loadFile("chicken_screeming.mp3");
            screemChicken.play();
            chickens.get(j).isHit = true;
            killed++;
-           //break;
+           break;
         }
       }
     }
+    
+    // choose random a live chicken and drop its egg
+    if(millis() - eggTime > 6000) {
+      println(eggTime + "    " + millis());
+        do {
+          randomEgg = (int) random(0, chickens.size());
+        } while(chickens.get(randomEgg).isHit);
+        eggTime = millis();
+    }  
+    if(randomEgg != -1 && randomEgg < chickens.size())  chickens.get(randomEgg).dropEgg();
    
+   // choose random a live chicken and drop its additional
+    if(millis() - additionalTime > 3000) {
+        do {
+          randomBullet = (int) random(0, chickens.size());
+        } while(chickens.get(randomBullet).isHit);
+        additionalTime = millis();
+    }  
+    if(randomBullet != -1 && randomBullet < chickens.size())  chickens.get(randomBullet).dropAdditionalBullets();
 }    
 
 
   void baseForEndAndWin(){
-        killedInv = minim.loadFile("KilledInvader.wav");
-        previousMoment = millis();
-        killed = 0;
-        nowT = 0;
-        startLevel2Time = 0;
-        bulletsNumber = 1;
-        invader.y2 = 800;
-        invader.x = 0;  
-        monster.x = monster.y = 100;
-        explosion = minim.loadFile("explosion.mp3");
-        clickSound = minim.loadFile("click.wav");
-        clickSound.play();
-        InvaderHit = false;
-        score = rocketLoading = killed = monster.monsterLife = 0;
-        chickens.clear();
-        bullets.clear();
+    killedInv = minim.loadFile("KilledInvader.wav");
+    previousMoment = millis();
+    nowT = 0;
+    bulletsNumber = 1; 
+    additionalTime = -1;
+    randomEgg = -1;
+    monster.x = monster.y = 100;
+    explosion = minim.loadFile("explosion.mp3");
+    clickSound = minim.loadFile("click.wav");
+    clickSound.play();
+    InvaderHit = false;
+    score = rocketLoading = killed = monster.monsterLife = 0;
+    chickens.clear();
+    bullets.clear();
   }
+  
+  
   void drawStar(int posx, int posy) {
     pushMatrix();
-    translate(posx, posy);
-    rotate(starAngle);
-    scale(sin(starAngle/ 10));
+      translate(posx, posy);
+      rotate(starAngle);
+      scale(sin(starAngle / 10));
       beginShape();
-      for (int i = 0; i < xPoints.length; i++) {
-        vertex(xPoints[i], yPoints[i]);
-      }
+        for (int i = 0; i < xPoints.length; i++) {
+          vertex(xPoints[i], yPoints[i]);
+        }
       endShape(CLOSE);
    popMatrix();
    starAngle += 0.04;
