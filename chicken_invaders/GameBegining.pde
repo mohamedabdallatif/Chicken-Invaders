@@ -1,7 +1,7 @@
 class GameBegining{
   String title = "CHICKEN INVADERS";
   String objective = "The game puts you at the forefront of a battle against invading intergalactic chickens, bent on revenge against the human race for our oppression of Earth chickens.";
-  String instructions = "you clear of chickens and other enemies, avoid eggs and other projectiles, collect power-ups to make your weapon stronger, get food items to obtain Rockets Right-Click to use them";
+  String instructions = "you clear of chickens and other enemies, avoid eggs and other projectiles, collect power-ups to make your weapon stronger, get food items to obtain Rockets, Right-Click to use them";
   String levels = "Three levels including Boss, Win Two levels, Fight Boss.";
   String rewards = "Blast enough chickens and you’ll be rewarded with drumsticks. Collecting drumsticks can earn you a powerful missile which will let you get past particularly challenging sections";
   PImage guide_background = loadImage("Space.jpg");
